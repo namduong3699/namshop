@@ -23,8 +23,8 @@
 	<!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/main_login.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/util_login.css') }}">
+	<link rel="stylesheet" type="text/css" href="css/main_login.css">
+	<link rel="stylesheet" type="text/css" href="css/util_login.css">
 	<!--===============================================================================================-->
 </head>
 <body>
