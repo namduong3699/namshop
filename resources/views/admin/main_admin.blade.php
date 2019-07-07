@@ -87,7 +87,9 @@
                         <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{URL::to('account')}}"><i class="fa fa-user fa-fw"></i> Thông tin người dùng</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Thông tin người dùng</a>
+                        </li>
+                        <li><a href="{{URL::to('#')}}"><i class="fa fa-gear fa-fw"></i> Cài đặt</a>
                         </li>
                         <li class="divider"></li>
                         <li>

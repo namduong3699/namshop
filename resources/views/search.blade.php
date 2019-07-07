@@ -94,21 +94,16 @@ Search
             @foreach($product as $item)
             <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women animated flipInY wow">
                 <div class="block2">
-                    <a href="{{ URL::to('product-detail', $item->id  ) }}">
-                        <div class="block2-pic hov-img0">
-                            @if ($item->discount != 0)
-                            <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
-                            @endif
-                            <div class="sold-out-text" style="visibility: @if($item->count > 0) hidden @else visible @endif">
-                                    <h1>HẾT HÀNG</h1>
-                                </div>
-                            <img src="images/{{ $item->folder }}/{{ $item->image_link }}" alt="IMG-PRODUCT">
-                            
-                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 js-show-info">
-                                Xem nhanh
-                            </a>
-                        </div>
-                    </a>
+                    <div class="block2-pic hov-img0">
+                        @if ($item->discount != 0)
+                        <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
+                        @endif
+                        <img src="{{ $item->image_link }}" alt="IMG-PRODUCT">
+
+                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 js-show-info">
+                            Xem nhanh
+                        </a>
+                    </div>
 
                     <div class="block2-txt flex-w flex-t p-t-14">
                         <div class="block2-txt-child1 flex-col-l ">

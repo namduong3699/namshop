@@ -35,11 +35,3 @@ Thông tin sản phẩm
 @section('modal')
 @include('modules/modal')
 @endsection
-
-@section('js')
-<script>
-	$('.slick3-dots li').each(function(index, el) {
-		$(el).attr('data-slick-index',index);
-	});
-</script>
-@endsection

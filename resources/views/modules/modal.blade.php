@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 			<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-				<img src="{{URL::to('public/images/icons/icon-close.png')}}" alt="CLOSE">
+				<img src="http://namshop.vn/images/icons/icon-close.png" alt="CLOSE">
 			</button>
 			<div class="row">
 				<!-- need change -->
@@ -46,7 +46,7 @@
 
 							<div class="slick3 gallery-lb slick-initialized slick-slider slick-dotted">
 								<div class="slick-list draggable">
-									<div class="slick-track " style="opacity: 1; width: 1539px;" id='slick-add'>
+									<div class="slick-track" style="opacity: 1; width: 1539px;" id='slick-add'>
 										<!-- <div class="item-slick3 slick-slide slick-current slick-active" data-thumb="http://namshop.vn/images/product-detail-01.jpg" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 513px; position: relative; left: 0px; top: 0px; ">
 											<div class="wrap-pic-w pos-relative">
 												<img src="http://namshop.vn/images/product-detail-01.jpg" alt="IMG-PRODUCT">
@@ -96,7 +96,7 @@
 						<div class="p-t-33">
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
-									Kích cỡ
+									Size
 								</div>
 
 								<div class="size-204 respon6-next">
@@ -110,7 +110,7 @@
 
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
-									Màu sắc
+									Color
 								</div>
 
 								<div class="size-204 respon6-next">
@@ -138,20 +138,18 @@
 									</div>
 
 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" id="buy" >
-										Thêm vào giỏ hàng
+										Add to cart
 									</button>
 								</div>
 							</div>	
 						</div>
 
-
-
 						<!--  -->
 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							{{-- <div class="flex-m bor9 p-r-10 m-r-11">
-								<button class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+							<div class="flex-m bor9 p-r-10 m-r-11">
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
 									<i class="zmdi zmdi-favorite"></i>
-								</button>
+								</a>
 							</div>
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
@@ -164,8 +162,7 @@
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
 								<i class="fa fa-google-plus"></i>
-							</a> --}}
-							
+							</a>
 						</div>
 					</div>
 				</div>

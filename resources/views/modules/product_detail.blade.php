@@ -8,21 +8,35 @@
 						<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 						<div class="slick3 gallery-lb">
-							<?php  
-							$list = $product->image_list;
-							$list= json_decode($list,true);
-							?>
-							@foreach($list as $image)
-							<div class="item-slick3" data-thumb="images/{{$product->folder}}/{{$image}}">
+							<div class="item-slick3" data-thumb="{{ $product->image_link }}">
 								<div class="wrap-pic-w pos-relative">
-									<img src="images/{{$product->folder}}/{{$image}}" alt="IMG-PRODUCT">
+									<img src="{{ $product->image_link }}" alt="IMG-PRODUCT">
 
-									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/{{$product->folder}}/{{$image}}">
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ $product->image_link }}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
 							</div>
-							@endforeach
+
+							<div class="item-slick3" data-thumb="{{ $product->image_link }}">
+								<div class="wrap-pic-w pos-relative">
+									<img src="{{ $product->image_link }}" alt="IMG-PRODUCT">
+
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ $product->image_link }}">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="item-slick3" data-thumb="{{ $product->image_link }}">
+								<div class="wrap-pic-w pos-relative">
+									<img src="{{ $product->image_link }}" alt="IMG-PRODUCT">
+
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ $product->image_link }}">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -53,26 +67,14 @@
 					</span>
 
 					<p class="stext-102 cl3 p-t-23">
-						Trạng thái: &nbsp;<strong id="quantity">
-							@if($product->count > 0)
-							Còn hàng
+						Số lượng còn lại: &nbsp;<strong id="quantity">{{ $product->count }}</strong>
+						<a href="{{ URL::to('add-to-wishlist' , $product->id) }}" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Thêm vào danh sách yêu thích" style="float: right;">
+							@if($inWish === true)
+							Yêu thích <i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
 							@else
-							Hết hàng
+							Yêu thích <i class="fa fa-heart-o" aria-hidden="true"></i>
 							@endif
-						</strong>
-						@if($inWish === true)
-						<button class="btn-addwish-b2 fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100 js-addedCart" data-id="{{ $product->id }}" data-tooltip="Thêm vào danh sách yêu thích" style="float: right;">
-							<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
-							<img class="icon-heart2 dis-block trans-04 ab-t-l" style="left: auto;" src="images/icons/icon-heart-02.png" alt="ICON">
-							<i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
-						</button>
-						@else
-						<button class="btn-addwish-b2 fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-id="{{ $product->id }}" data-tooltip="Thêm vào danh sách yêu thích" style="float: right;">
-							<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
-							<img class="icon-heart2 dis-block trans-04 ab-t-l" style="left: auto;" src="images/icons/icon-heart-02.png" alt="ICON">
-							<i class="fa fa-heart hide-wish" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
-						</button>
-						@endif
+						</a>
 						{{-- {{dd(Cart::instance('wishlist')->content()->search($product->rowId))}} --}}
 						{{-- {{dd(Cart::instance('wishlist')->content()->search((string)$product->id))}} --}}
 					</p>
@@ -86,11 +88,12 @@
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-
-									<select class="js-select2" name="time" id="select-size">
-										@foreach( $product->size as $key => $size )
-										<option value="{{$key}}"> {{$size}} </option>
-										@endforeach
+									<select class="js-select2" name="time" id="pro-size">
+										<option>Choose an option</option>
+										<option>Size S</option>
+										<option>Size M</option>
+										<option>Size L</option>
+										<option>Size XL</option>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -104,10 +107,12 @@
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2" id="select-color" name="pro-color">
-										@foreach( $product->color as $key => $color )
-										<option value="{{$key}}" > {{$color}} </option>
-										@endforeach
+									<select class="js-select2" id="pro-color" name="pro-color">
+										<option value="0">Choose an option</option>
+										<option value="1">Red</option>
+										<option value="2">Blue</option>
+										<option value="3">White</option>
+										<option value="4">Grey</option>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -127,7 +132,7 @@
 										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
-								<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-id="{{$product->id}}" @if($product->count <= 0) disabled @endif>
+								<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" id="{{$product->id}}">
 									Thêm vào giỏ hàng
 								</button>
 							</div>
@@ -135,7 +140,24 @@
 					</div>
 					
 					<!--  -->
-					<div class="flex-w flex-m p-t-10 p-l-30 respon7" style="width: 100%; overflow: hidden;">
+					<div class="flex-w flex-m p-l-100 p-t-10 respon7">
+						{{-- <div class="flex-m p-r-10 m-r-11">
+							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+								Yêu thích <i class="zmdi zmdi-favorite"></i>
+							</a>
+						</div> --}}
+
+						{{-- <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+							<i class="fa fa-facebook"></i>
+						</a>
+						
+						<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+							<i class="fa fa-twitter"></i>
+						</a>
+
+						<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+							<i class="fa fa-google-plus"></i>
+						</a> --}}
 
 						<div class="fb-like m-t-25" data-href="http://localhost/namshop/product-detail/1" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 
@@ -179,13 +201,43 @@
 						<div class="row">
 							<div class="col-sm-5 col-md-4 col-lg-3 m-lr-auto">
 								<ul class="p-lr-28 p-lr-15-sm">
+									{{-- <li class="flex-w flex-t p-b-7">
+										<span class="stext-102 cl3 size-205">
+											Weight
+										</span>
+
+										<span class="stext-102 cl6 size-206">
+											0.79 kg
+										</span>
+									</li> --}}
+
+									{{-- <li class="flex-w flex-t p-b-7">
+										<span class="stext-102 cl3 size-205">
+											Dimensions
+										</span>
+
+										<span class="stext-102 cl6 size-206">
+											110 x 33 x 100 cm
+										</span>
+									</li> --}}
+
+									{{-- <li class="flex-w flex-t p-b-7">
+										<span class="stext-102 cl3 size-205">
+											Materials
+										</span>
+
+										<span class="stext-102 cl6 size-206">
+											60% cotton
+										</span>
+									</li> --}}
+
 									<li class="flex-w flex-t p-b-7">
 										<span class="stext-102 cl3 size-205" >
 											Màu sắc
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											{{implode($product->color,',')}}
+											{{implode(json_decode($product->color,true), ',')}}
 										</span>
 									</li>
 
@@ -195,7 +247,7 @@
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											{{implode($product->size,',')}}
+											{{implode(json_decode($product->size,true), ',')}}
 										</span>
 									</li>
 								</ul>
@@ -288,7 +340,7 @@
 										</div>
 
 										<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-											Gửi
+											Submit
 										</button>
 									</form>
 									@endif
@@ -311,7 +363,7 @@
 		</span>
 	</div>
 
-	<div id="fb-root" style="width: 100%"></div>
+	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;

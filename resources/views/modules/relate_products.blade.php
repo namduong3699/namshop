@@ -10,7 +10,6 @@
 		<div class="wrap-slick2">
 			<div class="slick2">
 				@foreach($relatePro as $relate)
-				@if($relate->count != 0)
 				<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 					<!-- Block2 -->
 					<div class="block2">
@@ -19,16 +18,13 @@
 							<div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
 							@endif
 							<a href="{{ URL::to('product-detail', $relate->id  ) }}">
-								<div class="sold-out-text" style="visibility: @if($relate->count > 0) hidden @else visible @endif">
-									<h1>HẾT HÀNG</h1>
-								</div>
-								<img src="images/{{ $relate->folder }}/{{ $relate->image_link }}" alt="IMG-PRODUCT">
-							</a>
+									<img src="{{ $relate->image_link }}" alt="IMG-PRODUCT">
+								</a>
 							
 
-							{{-- <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 js-show-info" data-id="{{ $relate->id }}">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Xem nhanh
-							</a> --}}
+							</a>
 						</div>
 						{{-- {{dd(Cart::instance('shopping')->content())}} --}}
 						<div class="block2-txt flex-w flex-t p-t-14">
@@ -71,7 +67,6 @@
 							</div>
 						</div>
 					</div>
-					@endif
 					@endforeach
 
 

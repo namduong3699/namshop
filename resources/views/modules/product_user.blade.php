@@ -1,57 +1,4 @@
 <style>
-.page-item.active .page-link {
-	background-color: #57606f;
-	border-color: #57606f;
-}
-.page-link {
-	color: #1e90ff;
-}
-.ribbon-wrapper {
-	width:60px;
-	height:60px;
-	overflow:hidden;
-	position:absolute;
-	top:-3px;
-	right:-3px;
-	z-index: 999;
-}
-.ribbon {
-	color:#fff;
-	text-align:center;
-	-webkit-transform:rotate(45deg);
-	-moz-transform:rotate(45deg);
-	-ms-transform:rotate(45deg);
-	-o-transform:rotate(45deg);
-	position:relative;
-	padding:4px 0;
-	left:1px;
-	top:4px;
-	width:80px;
-	text-transform:uppercase;
-	background-color:#3a5c83
-}
-
-.ribbon:before,.ribbon:after {
-	content:"";
-	border-top:3px solid #6e8900;
-	border-left:3px solid transparent;
-	border-right:3px solid transparent;
-	position:absolute;
-	bottom:-3px
-}
-
-.ribbon:before {
-	left:0
-}
-
-.ribbon:after {
-	right:0
-}
-
-.ribbon.sale {
-	background-color:#f90
-}
-
 .cart-icon {
 	font-size: 24px;
 	color: #747d8c;
@@ -79,9 +26,7 @@
 .addWish {
 	color: #a4b0be;
 }
-.item-slick3.slick-current{
-	left: 0!important;
-}
+
 </style>
 
 
@@ -129,7 +74,7 @@
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
-						<form method="get" action="{{ URL::to('search') }}">
+						<form method="get" action="{{ URL::to('search') }}" style="width: 100%;">
 							<input class="mtext-107 cl2 size-114 plh2 p-r-15" name="key" type="text" placeholder="Tìm kiếm" id="search-pro">
 						</form>
 					</div>	
@@ -151,7 +96,7 @@
 								</li>
 
 								<li class="p-b-6">
-									<a href="{{ URL::to('filter/moi-nhat') }}" class="filter-link stext-106 trans-04">
+									<a href="{{ URL::to('filter/moi-nhat') }}" class="filter-link stext-106 trans-04 {{-- filter-link-active --}}">
 										Mới nhất
 									</a>
 								</li>
@@ -177,7 +122,7 @@
 
 							<ul>
 								<li class="p-b-6">
-									<a href="{{ URL::to('product') }}" class="filter-link stext-106 trans-04">
+									<a href="{{ URL::to('product') }}" class="filter-link stext-106 trans-04 {{-- filter-link-active --}}">
 										Tất cả
 									</a>
 								</li>
@@ -214,8 +159,6 @@
 							</ul>
 						</div>
 
-						
-
 						<div class="filter-col4 p-b-27">
 							<div class="mtext-102 cl2 p-b-15">
 								Thẻ
@@ -234,28 +177,22 @@
 			</div>
 			<div class="row isotope-grid">				
 				@foreach($product as $item)
-				@if($item->count != 0)
 				<div class="col-sm-6 col-md-4 col-lg-4 p-b-35 isotope-item women animated zoomIn wow">
 					<div class="block2">
-						
 						<div class="block2-pic hov-img0">
-
 							@if ($item->discount != 0)
 							<div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
 							@endif
 							<a href="{{ URL::to('product-detail', $item->id  ) }}">
-								<div class="sold-out-text" style="visibility: @if($item->count > 0) hidden @else visible @endif">
-									<h1>HẾT HÀNG</h1>
-								</div>
-								<img src="images/{{ $item->folder }}/{{ $item->image_link }}" alt="IMG-PRODUCT">
+								<img src="{{ $item->image_link }}" alt="IMG-PRODUCT">
 							</a>
-							{{-- <img src="images/{{ $item->folder }}/{{ $item->image_link }}" alt="IMG-PRODUCT"> --}}
+							{{-- <img src="{{ $item->image_link }}" alt="IMG-PRODUCT"> --}}
 
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 js-show-info" data-id="{{ $item->id }}">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 js-show-info" id="{{ $item->id }}">
 								Xem nhanh
 							</a>
 						</div>
-						
+
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
 								<a href="{{ URL::to('product-detail', $item->id  ) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"">
@@ -274,41 +211,49 @@
 										<span class="stext-105 cl3">
 											{{ number_format($item->price) }} VNĐ
 										</span>
-										@endif	 
+										@endif	
 									</div>
 								</div>
-								<div class="block2-txt-child2 flex-r p-t-3">
-									@if(Cart::instance('wishlist')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first() !== null)
-									<button class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addedCart" data-show='true' data-id="{{ $item->id }}">
-										<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										<i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
-									</button>
-									@else
-									<button class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-show='false' data-id="{{ $item->id }}">
-										<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										<i class="fa fa-heart hide-wish" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
-									</button>
 
+								{{-- <div class="block2-txt-child2 flex-r p-t-3">
+									@if(Cart::instance('wishlist')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first() !== null)
+									<a href="#" class="btn-addwish-b2 dis-block pos-relative" onclick="delWish('{{$item->rowId}}')" id="{{ $item->id }}">
+										<i class="fa fa-heart-o removeWish" aria-hidden="true"></i>
+									</a>
+									@else
+										<a href="{{ URL::to('add-to-wishlist' , $item->id) }}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" id="{{ $item->id }}">
+											<i class="fa fa-heart-o addWish" aria-hidden="true"></i>
+										</a>
 									@endif
 
+								</div> --}}
+
+								<div class="block2-txt-child2 flex-r p-t-3">
+
+										@if(Cart::instance('wishlist')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first() !== null)
+										<i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
+										@else
+										<a href="{{ URL::to('add-to-wishlist' , $item->id) }}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" id="{{ $item->id }}">
+										<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+										</a>
+										@endif
+									
 								</div>
 							</div>
 						</div>
 					</div>
-					@endif
 					@endforeach
 				</div>
 
 				<!-- Load more -->
 				<div class="flex-c-m flex-w w-full p-t-38">
-					{!! $product -> links(); !!}
+					{!! $product -> render() !!}
 				</div>
 			</div>
 		</div>
 		<div style="clear: both;"></div>
-		
+
 	</div>
 
 
@@ -318,9 +263,22 @@
 		new WOW().init();
 	</script>
 	<script src="js/jquery.min.js"></script>
-<!-- 	<script>
-
-		$(document).ready(function(){
+	<script>
+			// $(document).ready(function(){
+			// 	$('.addWish').click(function() {
+			// 		$(this).addClass('removeWish');
+			// 		$(this).removeClass('addWish');
+			// 		$(this).parent().removeClass('js-addwish-b2');
+			// 	});
+			// });
+			// $(document).ready(function(){
+			// 	$('.removeWish').click(function() {
+			// 		$(this).addClass('addWish');
+			// 		$(this).parent().addClass('js-addwish-b2');
+			// 		$(this).removeClass('removeWish');
+			// 	});
+			// });
+			$(document).ready(function(){
 			//Modal
 			$('.js-show-modal1').click(function(){
 				// $('.js-modal1').addClass('show-modal1');
@@ -337,5 +295,7 @@
 				});
 				// $('.js-modal1').addClass('show-modal1');
 			});
+
+			
 		});
-	</script> -->
+	</script>
