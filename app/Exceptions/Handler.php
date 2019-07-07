@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        // true
+        //
     ];
 
     /**
@@ -47,6 +47,5 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
-        // return redirect()->back();
     }
 }

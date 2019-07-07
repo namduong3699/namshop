@@ -42,26 +42,16 @@ class LoginController extends Controller
           $email = $request->input('email');
           $password = $request->input('password');
           if (Auth::attempt(['email' => $email, 'password' => $password,'level'=>1])) {
+             return redirect('/admin');
+         }
+         else if(Auth::attempt(['email' => $email, 'password' => $password,'level'=>0])) 
+         {
             Cart::instance('shopping');
             Cart::instance('shopping')->restore(Auth::user()->id);
             Cart::instance('wishlist');
             Cart::instance('wishlist')->restore(Auth::user()->email);
-            return redirect('/admin');
-        }
-        else if(Auth::attempt(['email' => $email, 'password' => $password,'level'=>0])) 
-        {
-            Cart::instance('shopping');
-            Cart::instance('shopping')->restore(Auth::user()->id);
-            Cart::instance('wishlist');
-            Cart::instance('wishlist')->restore(Auth::user()->email);
-            return redirect()->back();
-        }  else if(Auth::attempt(['email' => $email, 'password' => $password,'level'=>2])) {
-            Cart::instance('shopping');
-            Cart::instance('shopping')->restore(Auth::user()->id);
-            Cart::instance('wishlist');
-            Cart::instance('wishlist')->restore(Auth::user()->email);
-            return redirect()->back();
-        } else {
+            return redirect('/');
+        }else {
             $errors = new MessageBag(['errorlogin' => 'Tên đăng nhập hoặc mật khẩu không đúng']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
