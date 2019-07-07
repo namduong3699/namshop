@@ -44,10 +44,6 @@
                     <label>Ảnh Slider</label>
                     <input name="image" type="file">
                 </div>
-                <div class="form-group">
-                    <label>Ảnh Slider thumb (Ảnh nhỏ)</label>
-                    <input name="thumb" type="file">
-                </div>
                  </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Thêm</button>

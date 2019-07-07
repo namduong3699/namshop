@@ -13,13 +13,13 @@
 
 		<div class="header-wishlist-content flex-w js-pscroll">
 			<div style="display: none;" id="wishQty">{{count(Cart::instance('wishlist')->content())}}</div>
-			<ul class="header-cart-wrapitem w-full">
-				{{-- {{dd(Cart::instance('wishlist')->content())}} --}}
-				@if(!empty(Cart::instance('wishlist')->content()))
+			<ul class="header-cart-wrapitem w-full wish-list">
+				 {{-- {{dd(empty(Cart::instance('wishlist')->content()))}} --}}
+				@if(count(Cart::instance('wishlist')->content()))
 				@foreach(Cart::instance('wishlist')->content() as $item)
 				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img" onclick="delWish('{{$item->rowId}}')">
-						<img src="{!! $item->options->image !!}" alt="IMG">
+					<div class="header-cart-item-img del-wish" data-id='{{$item->id}}'>
+						<img src="images/{!! $item->options->folder !!}/{!! $item->options->image !!}" alt="IMG">
 					</div>
 
 					<div class="header-cart-item-txt p-t-8">
@@ -39,20 +39,9 @@
 				</span>
 				@endif
 
-
 			</ul>
 
-			{{-- <div class="w-full">
-				<div class="header-cart-buttons flex-w w-full">
-					<a href="{{ URL::to('shoping-cart') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-						Xem chi tiết
-					</a>
-
-					<a href="{{ URL::to('shoping-cart') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-						Đặt hàng
-					</a>
-				</div>
-			</div> --}}
+			
 		</div>
 	</div>
 </div>

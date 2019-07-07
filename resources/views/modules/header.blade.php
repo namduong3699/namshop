@@ -35,7 +35,7 @@
 
 				<!-- Logo desktop -->		
 				<a href="{{ URL::to('index') }}" class="logo">
-					<img src="images/icons/logo2.png" alt="IMG-LOGO">
+					<img src="images/icons/logo2.png" alt="IMG-LOGO" width="80%">
 				</a>
 
 				<!-- Menu desktop -->
@@ -54,7 +54,7 @@
 							</ul>
 						</li>
 
-						<li class="label1" data-label1="
+						<li class="data-label1 label1" data-label1="
 						@if(Session('cart'))
 						{{Cart::instance('shopping')->count()}}
 						@else
@@ -80,7 +80,7 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart data-notify" id="data-notify"  data-notify="
 				@if(Session('cart'))
 				{{Cart::instance('shopping')->count()}}
 				@else
@@ -111,7 +111,7 @@
 			<i class="zmdi zmdi-search"></i>
 		</div>
 
-		<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="
+		<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart data-notify" data-notify="
 		@if(Session('cart'))
 		{{Cart::instance('shopping')->count()}}
 		@else
@@ -179,7 +179,7 @@
 		</li>
 
 		<li>
-			<a href="{{ URL::to('shoping-cart') }}" class="label1 rs1" data-label1="
+			<a href="{{ URL::to('shoping-cart') }}" class="data-label1 label1 rs1" data-label1="
 			@if(Session('cart'))
 			{{Cart::instance('shopping')->count()}}
 			@else

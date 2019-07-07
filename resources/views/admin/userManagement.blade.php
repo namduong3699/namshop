@@ -32,7 +32,6 @@
                                     <th>Số điện thoại</th>
                                     <th>Quyền</th>
                                     <th>Địa chỉ</th>
-                                    <th>Trong túi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,27 +52,11 @@
                                     </th>
                                     <th>
                                         @if($value->address !== null)
-
-                                        {{json_decode($value->address, true)['tinh']}},
-                                        {{json_decode($value->address, true)['huyen']}},
-                                        {{json_decode($value->address, true)['xa']}}
+                                        {{implode(", ", array_reverse(json_decode($value->address, true)))}}
                                         @else
                                         Không có thông tin
                                         @endif
                                     </th>
-                                    <th>
-                                       @if($value->inbag !== null)
-                                       @foreach(json_decode($value->inbag, true) as $item => $value)
-                                            @if($loop->index === 0)
-                                                {{$value['name']}}
-                                            @else
-                                                , {{$value['name']}}
-                                            @endif
-                                       @endforeach
-                                       @else
-                                       Giỏ hàng trống
-                                       @endif
-                                   </th>
                                </tr>
                                @endforeach
                            </tbody>

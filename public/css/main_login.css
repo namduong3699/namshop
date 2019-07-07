@@ -7,22 +7,22 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/Sans_Pro/SourceSansPro-Regular.ttf'); 
+  src: url('../fonts/Open_Sans/OpenSans-Regular.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/Sans_Pro/SourceSansPro-Black.ttf'); 
+  src: url('../fonts/Open_Sans/OpenSans-SemiBold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/Sans_Pro/SourceSansPro-SemiBold.ttf'); 
+  src: url('../fonts/Open_Sans/OpenSans-Bold.ttf');  
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/Sans_Pro/SourceSansPro-SemiBold.ttf'); 
+  src: url('../fonts/Open_Sans/OpenSans-SemiBold.ttf'); 
 }
 
 
@@ -508,4 +508,27 @@ iframe {
   }
 
 } 
+
+/*9/12/2018*/
+.login-bt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 40px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 20px;
+}
+
+.login-bt i {
+ font-size: 28px;
+}
+
+.login-bt:hover {
+  color: white;
+}
+
+/*9/12/2018*/
 

@@ -6,7 +6,8 @@
 				<h4 class="stext-301 cl0 p-b-30">
 					Danh mục
 				</h4>
-
+				
+				@if(count($catalog) > 8)
 				<ul style="width: 50%; float: left;">
 					@foreach($catalog as $cata)
 					@if($loop->index <= count($catalog)/2)
@@ -21,6 +22,14 @@
 					@endif
 					@endforeach
 				</ul>
+				@else 
+				<ul>
+					@foreach($catalog as $cata)
+					<li><a href="{{ URL::to('product', $cata->id  ) }}" class="stext-107 cl7 hov-cl1 trans-04">{{ $cata->name }}</a></li>
+					@endforeach
+				</ul>
+				@endif
+
 			</div>
 
 			<div class="col-sm-6 col-lg-3 p-b-50">
@@ -61,7 +70,7 @@
 				</h4>
 
 				<p class="stext-107 cl7 size-201">
-					Nếu bạn có bất kỳ câu hỏi nào vui lòng liên hệ chúng tôi theo địa chỉ XXX, Nam Hồng, Đông Anh, Hà Nội (+84)36 871 5447
+					Nếu bạn có bất kỳ câu hỏi nào vui lòng liên hệ chúng tôi theo địa chỉ XXX, Đông Anh, Hà Nội (+84)36 871 5447
 				</p>
 
 				<div class="p-t-27">
@@ -84,9 +93,9 @@
 					Cần tư vấn
 				</h4>
 
-				<form>
+				<form method="get" action="{{URL::to('needContact')}}">
 					<div class="wrap-input1 w-full p-b-4">
-						<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="someone@example.com">
+						<input class="input1 bg-none plh1 stext-107 cl7" type="email" name="email" placeholder="Vui lòng nhập Email">
 						<div class="focus-input1 trans-04"></div>
 					</div>
 

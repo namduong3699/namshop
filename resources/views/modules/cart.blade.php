@@ -3,7 +3,7 @@
 	<div class="header-cart flex-col-l p-l-65 p-r-25">
 		<div class="header-cart-title flex-w flex-sb-m p-b-8">
 			<span class="mtext-103 cl2">
-				Giỏ hàng 
+				Giỏ hàng
 			</span>
 
 			<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -12,12 +12,12 @@
 		</div>
 
 		<div class="header-cart-content flex-w js-pscroll">
-			<ul class="header-cart-wrapitem w-full">
+			<ul class="header-cart-wrapitem w-full" id="show-cart-full">
 				@if(isset($cart))
 				@foreach(Cart::instance('shopping')->content() as $item)
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="{!! $item->options->image !!}" alt="IMG">
+				<li class="header-cart-item flex-w flex-t m-b-12">	
+					<div class="header-cart-item-img del-cart" data-id="{!! $item->id !!}">
+						<img src="images/{!! $item->options->folder !!}/{!! $item->options->image !!}" alt="IMG">
 					</div>
 
 					<div class="header-cart-item-txt p-t-8">
@@ -26,7 +26,7 @@
 						</a>
 
 						<span class="header-cart-item-info">
-							{!! $item->qty !!} x {!! number_format($item->price, 0, ",", ".") !!}
+							{!! $item->qty !!} x {!! number_format($item->price) !!}
 						</span>
 					</div>
 				</li>
@@ -46,25 +46,29 @@
 						<tr>
 							<td>Số lượng:</td>
 							<td>
-								<span style="color: red;"><b>
-									@if(isset($cart))
-									{{Cart::count()}}
-									@else
-									0 
-									@endif
-								</b></span><br/>
+								<span style="color: red;">
+									<b>
+									@if(Cart::instance('shopping')->content())
+										{{ Cart::instance('shopping')->subtotal(0) }} VNĐ
+										@else
+										0 VNĐ
+										@endif
+								</b>
+							</span><br/>
 							</td>
 						</tr>
-						<tr> 
+						<tr>
 							<td>Tổng cộng:</td>
 							<td>
-								<span style="color: red;"><b>
-									@if(isset($cart))
-									{{Cart::subTotal(0, ',')}}  VNĐ
+								<span style="color: red;">
+									<b id="tuto">
+									@if(Cart::instance('shopping')->content())
+									{{ Cart::instance('shopping')->subtotal(0) }} VNĐ
 									@else
 									0 VNĐ
 									@endif
-								</b></span>
+									</b>
+							</span>
 							</td>
 						</tr>
 					</table>
@@ -86,3 +90,7 @@
 		</div>
 	</div>
 </div>
+
+<!-- ================================ -->
+
+

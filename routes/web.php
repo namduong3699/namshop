@@ -14,9 +14,32 @@ use App\User;
 use App\Product;
 use App\Transaction;
 use App\Comment;
+use App\OrderPro;
+use App\NeedContact;
+
+
+Route::get('/countprice', function(){
+	if (Cart::instance('shopping')->content()){ return  Cart::instance('shopping')->subtotal(0);}
+	else return 0;
+});
+
+Route::get('delete-cart/{id}',function($id){
+	
+	$item=Product::find($id);
+    $cart= Cart::instance('shopping')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first();
+    if($cart!==null){
+
+        Cart::instance('shopping')->remove($cart->rowId);
+        }
+    return Cart::instance('shopping')->count();
+
+});
+
+Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
 
 Route::get('/', 'UserController@index');
 Route::get('/index', 'UserController@index');
+Route::get('/home', 'UserController@index');
 Route::get('/about', 'UserController@about');
 Route::get('/contact', 'UserController@contact');
 Route::post('/contact/send', 'UserController@postContact');
@@ -28,17 +51,31 @@ Route::get('/product-detail/{id}', 'UserController@productdetail');
 Route::get('/product/{type}', 'UserController@catalog');
 Route::get('/productshow/{id}',function($id){
 	$data =  DB::select("select * from product where id = ?",[$id]);
-	// $dulieu = $data[''];
-	
 	$data[0]->image_list = json_decode($data[0]->image_list,true);
+	$data[0]->size = json_decode($data[0]->size,true);
+	$data[0]->color = json_decode($data[0]->color,true);
 	echo json_encode($data);
 });
 Route::get('account', 'UserController@getAccount');
 Route::post('comment', 'UserController@postComment');
 Route::get('editAccount', 'UserController@getEditAccount');
-// Route::get('/test', function () {
-//     return view('main');
-// });
+Route::get('needContact', 'UserController@getNeedContact');
+Route::get('confirm', function(){
+	return view('confirm_email');
+});
+Route::post('/password_reset','RegisterController@passwordForget');
+
+
+Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
+
+
+Route::get('/resetpassword',function(){
+		return view('resetpassword');
+	});
+
+Route::post('/resetpassword','RegisterController@postReset');
+
+
 
 
 /*
@@ -57,21 +94,25 @@ Route::get('/auth/google/callback', "SocialAuthController@callbackGG");
 * Logout
 */
 Route::post('/logout', function(){
-	Cart::store(Auth::user()->id);
+	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->id)->delete();
+	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->email)->delete();
+	Cart::instance('shopping')->store(Auth::user()->id);
 	Cart::instance('wishlist')->store(Auth::user()->email);
-	Auth::logout();
 	Cart::instance('shopping')->destroy();
 	Cart::instance('wishlist')->destroy();
+	Auth::logout();
 	return redirect('/');
 })->name('logout');
 
 Route::get('/logout',function(){
+	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->id)->delete();
+	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->email)->delete();
 	Cart::instance('shopping')->store(Auth::user()->id);
 	Cart::instance('wishlist')->store(Auth::user()->email);
 	Auth::logout();
 	Cart::instance('shopping')->destroy();
 	Cart::instance('wishlist')->destroy();
-	return redirect('index');
+	return redirect()->back();
 });
 
 /*
@@ -121,8 +162,15 @@ Route::post('checkout', 'UserController@postCheckout');
 Route::get('checkPayment', 'UserController@getCheckPayment');
 
 /*
+* ADD-WISH
+*/
+Route::get('add-wish', function(){
+	return json_encode(Cart::instance('wishlist')->content());
+});
+/*
 * ADMIN
 */
+
 
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 
@@ -132,12 +180,16 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 		$productQty = Product::count();
 		$transactionQty = Transaction::count();
 		$newComment = Comment::orderBy('id', 'desc')->take(10)->get();
+		$orderPro = OrderPro::all();
+		$needContact = NeedContact::orderBy('id', 'desc')->take(10)->get();
 		return view('admin.admin', [
-			'catalogQty' => $catalogQty,
-			'userQty' 	=> $userQty,
-			'productQty' => $productQty,
+			'catalogQty' 	 => $catalogQty,
+			'userQty' 		 => $userQty,
+			'productQty' 	 => $productQty,
 			'transactionQty' => $transactionQty,
-			'newComment' => $newComment
+			'newComment' 	 => $newComment,
+			'orderPro'		 => $orderPro,
+			'needContact'	 => $needContact
 		]);
 	});
 	Route::get('/index', function () {
@@ -188,5 +240,9 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 	Route::get('/slide/delete/{id}','HomeController@slideDelete');
 
 	Route::get('/comment','HomeController@getComment');
-
+	Route::get('/comment/delete/{id}',function($id){
+		Comment::find($id)->delete();
+		return redirect()->back();
+	});
+	
 });

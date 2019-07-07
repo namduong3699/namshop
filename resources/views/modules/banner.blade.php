@@ -5,7 +5,7 @@
 		</h4>
 	</div>
 	<div class="tab01">
-
+		
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<!-- - -->
@@ -21,10 +21,10 @@
 									<div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
 									@endif
 									<a href="{{ URL::to('product-detail', $item->id  ) }}">
-										<img src="{{ $item->image_link }}" alt="IMG-PRODUCT">
+										<img src="images/{{ $item->folder }}/{{ $item->image_link }}" alt="IMG-PRODUCT">
 									</a>
 
-									<a href="{{ URL::to('product/' . $item->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+									<a href="{{ URL::to('product/' . $item->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-id="{{$item->id}}">
 										Xem nhanh
 									</a>
 								</div>
@@ -53,23 +53,29 @@
 									</div>
 
 									<div class="block2-txt-child2 flex-r p-t-3">
-
 										@if(Cart::instance('wishlist')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first() !== null)
-										<i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
-										@else
-										<a href="{{ URL::to('add-to-wishlist' , $item->id) }}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" id="{{ $item->id }}">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+										<button class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addedCart" data-show='true' data-id="{{ $item->id }}">
+											<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
 											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										</a>
+											<i class="fa fa-heart" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
+										</button>
+										@else
+										<button class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-show='false' data-id="{{ $item->id }}">
+											<img class="icon-heart1 dis-block trans-04 " src="images/icons/icon-heart-01.png" alt="ICON">
+											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+											<i class="fa fa-heart hide-wish" aria-hidden="true" style="color: #eb4d4b; font-size: 18px"></i>
+										</button>
+
 										@endif
 										
 									</div>
-
 								</div>
 							</div>
 						</div>
+
+						<!-- ================== -->
 						@endforeach
-						
+						<!-- ============== -->
 					</div>
 				</div>
 			</div>

@@ -18,7 +18,7 @@
         timeoutCountdown: 5000,
         onLoadEvent: true,
         browser: [ 'animation-duration', '-webkit-animation-duration'],
-        overlay : false,
+        overlay : false,       
         overlayClass : 'animsition-overlay-slide',
         overlayParentElement : 'html',
         transition: function(url){ window.location.href = url; }
@@ -100,11 +100,11 @@
 
             $('.sub-menu-m').each(function(){
                 if($(this).css('display') == 'block') { console.log('hello');
-                    $(this).css('display','none');
-                    $(arrowMainMenu).removeClass('turn-arrow-main-menu-m');
-                }
-            });
-                
+                $(this).css('display','none');
+                $(arrowMainMenu).removeClass('turn-arrow-main-menu-m');
+            }
+        });
+            
         }
     });
 
@@ -195,21 +195,12 @@
     /*==================================================================
     [ Cart ]*/
     $('.js-show-cart').on('click',function(){
+        console.log(1);
         $('.js-panel-cart').addClass('show-header-cart');
     });
 
     $('.js-hide-cart').on('click',function(){
         $('.js-panel-cart').removeClass('show-header-cart');
-    });
-
-    /*==================================================================
-    [ Wishlist ]*/
-    $('.js-show-wishlist').on('click',function(){
-        $('.js-panel-wishlist').addClass('show-header-cart');
-    });
-
-    $('.js-hide-wishlist').on('click',function(){
-        $('.js-panel-wishlist').removeClass('show-header-cart');
     });
 
     /*==================================================================
@@ -222,16 +213,43 @@
         $('.js-sidebar').removeClass('show-sidebar');
     });
 
+    $('.js-show-wishlist').on('click',function(){
+        $('.js-panel-wishlist').addClass('show-header-cart');
+    });
+
+    $('.js-hide-wishlist').on('click',function(){
+        $('.js-panel-wishlist').removeClass('show-header-cart');
+    });
     /*==================================================================
     [ +/- num product ]*/
     $('.btn-num-product-down').on('click', function(){
         var numProduct = Number($(this).next().val());
-        if(numProduct > 0) $(this).next().val(numProduct - 1);
+        if(numProduct > 0) {
+            $(this).next().val(numProduct - 1);
+            // console.log(parseInt($(this).parent().parent().next().text()));
+            // console.log(parseInt($(this).parent().parent().prev().prev().prev().text()));
+            var price= parseInt($(this).parent().parent().prev().prev().prev().text().replace(',','')) *(numProduct - 1);
+            $(this).parent().parent().next().text(price.toLocaleString('EN')+ ' VNĐ');
+            if(numProduct == 1)
+            {
+                $(this).parent().parent().parent().addClass('remove-product');
+            // console.log();
+            }   
+        }
+
     });
 
     $('.btn-num-product-up').on('click', function(){
         var numProduct = Number($(this).prev().val());
-        $('.num-product').val(numProduct + 1);
+       $(this).prev().val(numProduct + 1);
+
+       // console.log(parseInt($(this).parent().parent().next().text()));
+       // console.log(parseInt($(this).parent().parent().prev().prev().prev().text()));
+       var price=parseInt($(this).parent().parent().prev().prev().prev().text().replace(',','')) *(numProduct + 1);
+       $(this).parent().parent().next().text(price.toLocaleString('EN')+ ' VNĐ');
+       if(numProduct+1 == 1){
+        $(this).parent().parent().parent().removeClass('remove-product');
+       }
     });
 
     /*==================================================================
@@ -289,29 +307,29 @@
             async:false,
             dataType: 'json',
             success: function(data){
-                console.log(data[0]);
+                // console.log(data[0]);
                 $('#infor').text(data[0].description);
-                $('#price').text(Math.round(data[0].price*(1-data[0].discount/100))+" VNĐ");
+                $('#price').text(Math.round(data[0].price*(1-data[0].discount/100)).toLocaleString('EN')+" VNĐ");
                 $('#nameItems').text(data[0].name).attr('data-id',id);
                 $('#dots-add').html(' ');
                 $('#slick-add').html(' ');
                 data[0].image_list.forEach(function(el,index){
                     if(index==0){
                     $('#dots-add').append('<li class="cl slick-active" role="presentation" data-slick-index="'+index+'"><img src=" images/'+data[0].folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
-                    $('#slick-add').append('<div class="item-slick3 slick-slide slick-current slick-active" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 513px; position: relative; left: 0px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'" alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/'+data[0].folder+'/'+el+'" tabindex="0"><i class="fa fa-expand"></i></a></div></div>');
+                    $('#slick-add').append('<div class="cc item-slick3 slick-slide slick-current slick-active" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 513px; position: relative; left: 0px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'" alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/'+data[0].folder+'/'+el+'" tabindex="0"><i class="fa fa-expand"></i></a></div></div>');
                     }
                     else{
                         $('#dots-add').append('<li class="cl " role="presentation" data-slick-index="'+index+'"><img src=" images/'+data[0].folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
-                        $('#slick-add').append('<div class="item-slick3 slick-slide" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="'+index+'" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide21" aria-describedby="slick-slide-control21" style="width: 513px; position: relative; left: '+(-513*index)+'px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'"alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href=" images/'+data[0].folder+'/'+el+'" tabindex="-1"><i class="fa fa-expand"></i></a></div></div>');
+                        $('#slick-add').append('<div class="cc item-slick3 slick-slide" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="'+index+'" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide21" aria-describedby="slick-slide-control21" style="width: 513px; position: relative; left: '+(-513*index)+'px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'"alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href=" images/'+data[0].folder+'/'+el+'" tabindex="-1"><i class="fa fa-expand"></i></a></div></div>');
                     }
                     // console.log(index+el);
                     $('#select-size').html(' ');
                     data[0].size.forEach(function(el,index){
-                        $('#select-size').append('<option value="'+index+'">'+el+'</option>');
+                        $('#select-size').append('<option value="'+index+'"> '+el+'</option>');
                     });
                     $('#select-color').html(' ');
                     data[0].color.forEach(function(el,index){
-                        $('#select-color').append('<option value="'+index+'">'+el+'</option>');
+                        $('#select-color').append('<option value="'+index+'"> '+el+'</option>');
                     });
                     $('#buy').attr('data-id',data[0].id);
                 });
@@ -342,51 +360,52 @@
     $('.js-hide-modal1').on('click',function(){
         $('.js-modal1').removeClass('show-modal1');
     });
-    $('.next-slick3').on('click', function(event) {
-        event.preventDefault();
-        var now=$('.slick-current.slick-active').data('slick-index');
-        var next1=$('li.slick-active').next();
-        var next= $('.slick-current.slick-active').next();
+    // $('.next-slick3').on('click', function(event) {
+    //     event.preventDefault();
+    //     var now=$('.slick-current.slick-active').data('slick-index');
+    //     var next1=$('li.slick-active').next();
+    //     var next= $('.slick-current.slick-active').next();
+    //     console.log(next.data('slick-index'));
+    //     if(typeof(next1.data('slick-index')) != "undefined"){
+    //         $('.slick-current.slick-active').removeClass('slick-current slick-active');
+    //         $('li.slick-active').removeClass('slick-active');
+    //         next1.addClass('slick-active');
+    //         next.addClass('slick-current slick-active');
 
-        if(next.data('slick-index')){
-            $('.slick-current.slick-active').removeClass('slick-current slick-active');
-            $('li.slick-active').removeClass('slick-active');
-            next1.addClass('slick-active');
-            next.addClass('slick-current slick-active');
-        }
-        else
-        {
-            $('.slick-current.slick-active').removeClass('slick-current slick-active');
-            $('li.slick-active').removeClass('slick-active');
-             $('.slick3-dots li:first-child').addClass('slick-active');
-            $('.item-slick3:first-child').addClass('slick-current slick-active');
-        }
-    });
+    //     }
+    //     else
+    //     {
+    //         $('.slick-current.slick-active').removeClass('slick-current slick-active');
+    //         $('li.slick-active').removeClass('slick-active');
+    //         $('.slick3-dots li:first-child').addClass('slick-active');
+    //         $('.item-slick3:first-child').addClass('slick-current slick-active');
+    //     }
+    // });
 
-    $('.prev-slick3').on('click', function(event) {
-        event.preventDefault();
-        // var now=$('.slick-current.slick-active').data('slick-index');
-        var prev1=$('li.slick-active').prev();
-        var prev= $('.slick-current.slick-active').prev();
-        // alert(prev1.data('slick-index'));
-        if(prev1.data('slick-index')||prev1.data('slick-index')=='0'){
-            $('.slick-current.slick-active').removeClass('slick-current slick-active');
-            $('li.slick-active').removeClass('slick-active');
-            prev1.addClass('slick-active');
-            prev.addClass('slick-current slick-active');
-        }
-        else
-        {
-            $('.slick-current.slick-active').removeClass('slick-current slick-active');
+    // $('.prev-slick3').on('click', function(event) {
+    //     event.preventDefault();
+    //     // var now=$('.slick-current.slick-active').data('slick-index');
+    //     var prev1=$('li.slick-active').prev();
+    //     var prev= $('.slick-current.slick-active').prev();
+    //     // alert(prev1.data('slick-index'));
+    //     if(typeof(prev1.data('slick-index')) != "undefined"){
+    //         $('.slick-current.slick-active').removeClass('slick-current slick-active');
+    //         $('li.slick-active').removeClass('slick-active');
+    //         prev1.addClass('slick-active');
+    //         prev.addClass('slick-current slick-active');
+    //     }
+    //     else
+    //     {
+    //         $('.slick-current.slick-active').removeClass('slick-current slick-active');
 
-            $('li.slick-active').removeClass('slick-active');
+    //         $('li.slick-active').removeClass('slick-active');
 
-            $('.slick3-dots li:last-child').addClass('slick-active');
+    //         $('.slick3-dots li:last-child').addClass('slick-active');
 
-            $('.item-slick3:last-child').addClass('slick-current slick-active');
+    //         $('.item-slick3:last-child').addClass('slick-current slick-active');
 
-        }
-    });
+    //     }
+    // });
     // $('.slick3-dots').on('click', function(event) {
     //     console.log(1);
     //     /* Act on the event */

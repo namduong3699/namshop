@@ -80,7 +80,7 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 				<div class="update-data-icon">
-					<div class="cart-icon icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="@if(Session('cart')){{Cart::instance('shopping')->count()}} @else
+					<div class="cart-icon icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart data-notify" id="data-notify" data-notify="@if(Session('cart')){{Cart::instance('shopping')->count()}} @else
 					0 @endif">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
@@ -108,15 +108,15 @@
 			<i class="zmdi zmdi-search"></i>
 		</div>
 
-		<div class="cart-icon icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="
-			@if(Session('cart'))
-			{{Cart::instance('shopping')->count()}}
-			@else
-			0
-			@endif
-			">
-			<i class="zmdi zmdi-shopping-cart"></i>
-		</div>
+		<div class="cart-icon icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart data-notify" data-notify="
+		@if(Session('cart'))
+		{{Cart::instance('shopping')->count()}}
+		@else
+		0
+		@endif
+		">
+		<i class="zmdi zmdi-shopping-cart"></i>
+	</div>
 
 	<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-wishlist wishlist-icon" data-notify="{{count(Cart::instance('wishlist')->content())}}">
 		<i class="zmdi zmdi-favorite-outline"></i>

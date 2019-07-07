@@ -45,7 +45,7 @@
                 <td>{{$cmt->product_Id}}</td>
                 <td>{{DB::select("select `name` from product where id = ?" ,[$cmt->product_Id])[0]->name}}</td>
                 <td>
-                  <a href="{{URL::to('product-detail', $cmt->product_Id)}}" style="color: black"><img src="{{DB::select("select `image_link` from product where id = ?" ,[$cmt->product_Id])[0]->image_link}}" alt="product-image" width="100px"></a>
+                  <a href="{{URL::to('product-detail', $cmt->product_Id)}}" style="color: black"><img src="images/{{DB::select("select `folder` from product where id = ?" ,[$cmt->product_Id])[0]->folder}}/{{DB::select("select `image_link` from product where id = ?" ,[$cmt->product_Id])[0]->image_link}}" alt="product-image" width="100px"></a>
                 </td>
                 <td>
                   @if($cmt->rate === 0) 

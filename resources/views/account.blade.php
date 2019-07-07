@@ -19,64 +19,9 @@ Tài khoản
 
 	
 
-	<!-- Shoping Cart -->
+	
 	<form class="bg0 p-t-50 p-b-85" style="margin-top: 100px">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-					{{-- <div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="info">
-							@if(!isset($user->name)))
-							<div style='text-align:center'><h1>Bạn chưa đăng nhập</h1></div>
-							@else
-
-							<div class="img-info">
-								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
-								<h1>Thông tin tài khoản</h1>
-							</div>
-							<div class="table-info">
-								<table>
-									<tr> 
-										<td>
-											Họ và tên: 
-										</td>
-										<td>
-											{{$user->name}}
-										</td>
-									</tr>
-									<tr> 
-										<td>
-											Số điện thoại: 
-										</td>
-										<td>
-											{{$user->phone}}
-										</td>
-									</tr>
-									<tr> 
-										<td>
-											Email:
-										</td>
-										<td>
-											{{$user->email}}
-										</td>
-									</tr>
-									<tr> 
-										<td> 
-											Địa chỉ:
-
-										</td>
-										<td>
-											<p>{{$address['tinh']}}, {{$address['huyen']}}, {{$address['xa']}}</p>
-										</td>
-									</tr>
-								</table>
-							</div>
-							@endif
-						</div>
-					</div> --}}
-				</div>	
-			</div>
-
 			<div class="row">
 				<div class="col-sm-10 col-lg-7 col-xl-4 m-lr-auto m-b-50">
 					<div class="bor10 p-lr-15 p-t-30 p-b-40 m-l-30 m-r-0 m-lr-0-xl p-lr-15-sm">
@@ -84,10 +29,10 @@ Tài khoản
 							Thông tin tài khoản
 						</h4>
 						<div class="edit-acc p-l-17">
-							<i class="fa fa-key" aria-hidden="true"></i> <a {{-- href="#" --}} id="bt-change-pass">Đổi mật khẩu</a>	
+							<i class="fa fa-key" aria-hidden="true"></i> <a {{-- href="#" --}} id="bt-change-pass" style="cursor: pointer;">Đổi mật khẩu</a>	
 						</div>
 						<div class="edit-acc p-l-17 p-b-30">
-							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a {{-- href="#" --}}  id="bt-edit-account">Sửa thông tin</a>	
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a {{-- href="#" --}}  id="bt-edit-account" style="cursor: pointer;">Sửa thông tin</a>	
 						</div>
 						
 						
@@ -97,7 +42,6 @@ Tài khoản
 									@if(!isset(Auth::user()->name)))
 									<div style='text-align:center'><h1>Bạn chưa đăng nhập</h1></div>
 									@else
-									
 
 									<div class="new-table-info">
 										<table>
@@ -142,10 +86,34 @@ Tài khoản
 						</div>	
 					</div>
 				</div> 
+
 				<div class="col-lg-10 col-xl-8 m-lr-auto m-b-50" id="car-table">
+					{{-- {{dd($history)}} --}}
+					<h4 class="mtext-109 cl2 p-b-10 m-t-30 m-b-60" style="border-bottom: 1px solid #eee">
+						Lịch sử mua hàng
+					</h4>
+					@if($history)
+					@foreach($history as $key => $hist)
+					<table class="trans-info">
+						<tr>
+							<td>Đơn hàng: <span style="cursor: pointer; color: #a29bfe;">#{{$hist['trans']->id}}</span></td>
+							<td>Đặt ngày: {{$hist['trans']->createdat}}</td>
+						</tr>
+						<tr>
+							<td>Tình trạng: @if($hist['trans']->status == 0) chưa giao hàng @else đã giao hàng @endif</td>
+							<td>Phương thức thanh toán: {{$hist['trans']->payment_info}} @if($hist['trans']->payment == 'none') (chưa thanh toán) @else (đã thanh toán) @endif</td>
+						</tr>
+						<tr>
+							<td colspan="2">Địa chỉ nhận hàng: {{implode(", ", array_reverse(json_decode($hist['trans']->message, true)))}}</td><td></td>
+						</tr>
+					</table>
+					
+
+
+
 					<div class="m-l-0 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart" id="cart">
-							<table class="table-shopping-cart">
+						<div class="wrap-table-shopping-cart" id="cart">						
+							<table class="table-shopping-cart p-b-15">
 								<tr class="table_head">
 									<th class="column-1">Sản phẩm</th>
 									<th class="column-2">Tên sản phẩm</th>
@@ -155,49 +123,42 @@ Tài khoản
 									<th class="column-4">Số lượng</th>
 									<th class="column-5">Tổng cộng</th>
 								</tr>
-
-								@if(Cart::content())
-								@foreach(Cart::instance('shopping')->content() as $product)
+								
+								@foreach($hist['info']['order'] as $product)
+								{{-- {{dd($product)}} --}}
 								<tr class="table_row">
 									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="{{ $product->options->image }}" alt="IMG">
+										<div class="how-itemcart1 p-t-40">
+											<img src="images/{{ $hist['info']['pro'][$loop->index]->folder }}/{{ $hist['info']['pro'][$loop->index]->image_link }}" alt="IMG">
 										</div>
 									</td>
-									<td class="column-2">{{ $product->name }}</td>
-									<td class="column-3">{{ number_format($product->price) }} VNĐ</td>
-									<td class="column-3">{{ number_format($product->size) }}</td>
-									<td class="column-3">{{ number_format($product->color) }}</td>
+									<td class="column-2"> <a href="{{URL::to('product-detail/' .$hist['info']['pro'][$loop->index]->id)}}" style="color: #636e72">{{$hist['info']['pro'][$loop->index]->name}}</a> </td>
+									<td class="column-3"> {{number_format($hist['info']['pro'][$loop->index]->price)}} VNĐ</td>
+									<td class="column-3">{{ json_decode($product->data, true)['size'] }}</td>
+									<td class="column-3">{{ json_decode($product->data, true)['color'] }}</td>
 									<td class="column-3">
-										{{ $product->qty }}
-										{{-- <div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" onclick="updateCart('{{$product->rowId}}', {{$product->qty-1}}, -1)">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="{{ $product->qty }}">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" onclick="updateCart('{{$product->rowId}}', {{$product->qty+1}}, 1)">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div> --}}
+										{{ $product->count }}
 									</td>
-									<td class="column-5">{{ number_format($product->qty * $product->price)}} VNĐ</td>
+									<td class="column-5">{{ number_format($product->amount) }} VNĐ</td>
 								</tr>
 								@endforeach
-								@endif
-
+								
 							</table>
 						</div>
-
-						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-l-40 p-lr-15-sm p-r-20 txt-center" style="text-align: center;">
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-l-40 p-lr-15-sm p-r-20 txt-center m-b-70" style="text-align: center;">
 							@if(Cart::instance('shopping')->content())
-							<b>Tổng cộng:</b> <strong>{{ Cart::subtotal(0) }} VNĐ</strong>
+							<b>Tổng cộng:</b> <strong>{{ number_format($hist['trans']->amount) }} VNĐ</strong>
 							@else 
 							<b>Giỏ hàng rỗng</b>
 							@endif
 						</div>
 					</div>
+					@endforeach
+					@else
+					<h4 class="mtext-109 cl2 p-b-10 m-t-30 m-b-40 p-b-20" style="text-align: center; ">
+						Trống
+					</h4>
+					@endif
 				</div>
 				
 				{{-- ĐỔI THÔNG TIN TÀI KHOẢN --}}
@@ -214,7 +175,7 @@ Tài khoản
 								</td>
 								<td>
 									<div class="wrap-input1 w-full p-b-4">
-										<input class="input1  plh1 stext-107 cl7" type="text" name="name" value="{{$user->name}}">
+										<input class="input1  plh1 stext-107 cl7" type="text" name="name" value="{{$user->name}}" required="">
 										<div class="focus-input1 trans-04"></div>
 									</div>
 								</td>
@@ -225,7 +186,7 @@ Tài khoản
 								</td>
 								<td class="p-b-20">
 									<div class="wrap-input1 w-full p-b-4">
-										<input class="input1  plh1 stext-107 cl7" type="text" name="phone" value="{{$user->phone}}">
+										<input class="input1  plh1 stext-107 cl7" type="text" name="phone" value="{{$user->phone}}" required="">
 										<div class="focus-input1 trans-04"></div>
 									</div>
 								</td>
@@ -236,8 +197,8 @@ Tài khoản
 								</td>
 								<td>
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<select class="js-select2" name="thanh_pho" id="thanh_pho">
-											<option>Tỉnh / Thành phố...</option>
+										<select class="js-select2" name="thanh_pho" id="thanh_pho" required="">
+											<option value="">Tỉnh / Thành phố...</option>
 											@foreach($tp as $thanh_pho)
 											<option value="{{$thanh_pho->matp}}">{{$thanh_pho->name}}</option>
 											@endforeach
@@ -246,15 +207,15 @@ Tài khoản
 									</div>
 
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<select class="js-select2" name="quan_huyen" id="quan_huyen">
-											<option>Quận / Huyện...</option>
+										<select class="js-select2" name="quan_huyen" id="quan_huyen" required="">
+											<option value="">Quận / Huyện...</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<select class="js-select2" name="phuong_xa" id="phuong_xa">
-											<option>Phường / Xã...</option>
+										<select class="js-select2" name="phuong_xa" id="phuong_xa" required="">
+											<option value="">Phường / Xã...</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -359,12 +320,13 @@ Tài khoản
 				var pass1 = $('#pass1').val();
 				var pass2 = $('#pass2').val();
 				var oldPass = $('#oldPass').val();
-				if(pass1 == '' || pass2 == '' || oldPass == '') alert("Phải nhập đầy đủ thông tin!");
-				else if(pass1.length < 6 || pass2.length < 6) alert("Mật khẩu phải có ít nhất 6 ký tự!");
-				else if(pass1 != pass2) alert("Nhập lại mật khẩu mới không đúng");
+				if(pass1 == '' || pass2 == '' || oldPass == '') swal(' ', "Phải nhập đầy đủ thông tin!", "error");
+				else if(pass1.length < 6 || pass2.length < 6) swal(' ', "Mật khẩu phải có ít nhất 6 ký tự!", "error");
+				else if(pass1 != pass2) swal(' ', "Nhập lại mật khẩu mới không đúng", "error");
 				else 
 					$.get('{{ URL::to('editAccount') }}', {'oldPass':oldPass, 'newPass':pass1}, function(data) {
-						alert("Bạn đã đổi mật khẩu thành công");
+						if(data == 'Mật khẩu sai!') swal(' ', data, "error");
+						else swal(' ', data, "success");
 					});
 			});
 			$("#bt-change-pass").click(function(){
@@ -455,6 +417,7 @@ table tr {
 table tr td:first-child {
 	font-weight: bold;
 	width: 35%;
+	vertical-align: top;
 }
 .wrap-input1 {
 	border-bottom: 1px solid #eee !important;

@@ -68,7 +68,7 @@
 						@endif
 
 						<div class="text-right p-t-8 p-b-31">
-							<a href="#">
+							<a href="{{URL::to('resetpassword')}}">
 								Quên mật khẩu
 							</a>
 						</div>
@@ -90,16 +90,19 @@
 						</div>
 
 						<div class="flex-c-m">
-							<a href="{{ URL::to('auth/facebook') }}" class="login100-social-item bg1">
+							{{-- <a href="{{ URL::to('auth/facebook') }}" class="login100-social-item bg1">
 								<i class="fa fa-facebook"></i>
 							</a>
 
 							<a href="#" class="login100-social-item bg2">
 								<i class="fa fa-twitter"></i>
-							</a>
+							</a> --}}
 
-							<a href="{{ URL::to('auth/google') }}" class="login100-social-item bg3" style="text-decoration: none">
+							{{-- <a href="{{ URL::to('auth/google') }}" class="login100-social-item bg3" style="text-decoration: none">
 								<i class="fa fa-google"></i>
+							</a> --}}
+							<a href="{{ URL::to('auth/google') }}" class="login-bt bg3">
+								<i class="fa fa-google"></i>oogle
 							</a>
 						</div>
 

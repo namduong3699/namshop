@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
+    <title>Sign Up</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -64,21 +64,21 @@
                         <div class="form-group">
                             <select name="tinh" id="thanh_pho"  class="form-input">
                                 @foreach($tinh as $value)
-                                <option value="{{$value->matp}}">{{$value->name}}</option>
+                                <option value="{{$value->name}}">{{$value->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <select name="huyen" id="quan_huyen" class="form-input">
                                 @foreach($huyen as $value)
-                                <option value="{{$value->maqh}}">{{$value->name}}</option>
+                                <option value="{{$value->name}}">{{$value->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <select name="xa" id="phuong_xa" class="form-input">
                                 @foreach($xa as $value)
-                                <option value="{{$value->xaid}}">{{$value->name}}</option>
+                                <option value="{{$value->name}}">{{$value->name}}</option>
                                 @endforeach
                             </select>
                         </div>
