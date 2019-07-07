@@ -44,7 +44,7 @@ return [
     'facebook' => [
         'client_id' => '506280463204349',
         'client_secret' => 'f75a063139f62d007556dcb1804066f8',
-        'redirect' => 'http://localhost/namnam/auth/facebook/callback',
+        'redirect' => 'http://namuet.vn/auth/facebook/callback',
     ],
     'github' => [
         'client_id' => env('GITHUB_APP_ID'),
@@ -57,9 +57,9 @@ return [
         'redirect' => env('TWITTER_APP_CALLBACK_URL'),
     ],
     'google' => [
-        'client_id' => '371073169075-agk89sn3icbohsr762c002hdgs1jqjap.apps.googleusercontent.com',
-        'client_secret' => 'HCs2btmuqTsIhXNBURAhqX6l',
-        'redirect' => 'http://localhost/namnam/auth/google/callback',
+        'client_id' => '371073169075-ku2t7cfda28es4jg48mf8rr8km29nv6p.apps.googleusercontent.com',
+        'client_secret' => '3s_T5HUktwXEw9UEoDs76h7g',
+        'redirect' => 'http://namuet.vn/auth/google/callback',
     ],
 
 ];
