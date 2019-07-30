@@ -59,7 +59,7 @@ return [
     'google' => [
         'client_id' => '371073169075-ku2t7cfda28es4jg48mf8rr8km29nv6p.apps.googleusercontent.com',
         'client_secret' => '3s_T5HUktwXEw9UEoDs76h7g',
-        'redirect' => 'http://namuet.vn/auth/google/callback',
+        'redirect' => 'http://namuet.herokuapp.com/auth/google/callback',
     ],
 
 ];
