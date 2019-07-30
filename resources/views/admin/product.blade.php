@@ -128,7 +128,7 @@
                             <th>{{$value->name}}</th>
                             <th>{{$value->id}}</th>
                             <th>
-                                {{DB::select("select `name` from catalog where id = ?" ,[$value->catalog_id])[0]->name}}
+                                {{DB::select("select 'name' from catalog where id = ?" ,[$value->catalog_id])[0]->name}}
                             </th>
                             <th>{{$value->count}}</th>
                             <th>{{implode(json_decode($value->size,true), ',')}}</th>
