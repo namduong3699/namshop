@@ -31,7 +31,7 @@
 <body>
 	<div class="limiter">
 		<div class="container-login">
-			<div class="background" style="background-image: url('public/images/about-01.jpg'); float: left;">
+			<div class="background" style="background-image: url('images/about-01.jpg'); float: left;">
 				<div class="p-l-55 p-r-55 p-t-65 p-b-54">
 					
 				</div>
