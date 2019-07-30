@@ -82,14 +82,14 @@ class HomeController extends Controller
 
     public function product(Request $request)
     {
-        if(empty($request->name)||empty($request->size)||empty($request->price)||empty($request->count)||empty($request->color)||empty($request->discount)){
+        if(empty($request->name)||empty($request->size)||empty($request->price)||empty($request->count)||empty($request->color)){
             return redirect('admin/product')->with('add','<span>Thêm thất bại<span>');
         }
         $addT = new Product();
         $addT->name=$request->name;
         $addT->catalog_id=$request->catalog_id;
         $addT->price=$request->price;
-        $addT->discount=$request->discount;
+        $addT->discount = (empty($request->discount)) ? 0 : $request->discount;
         $addT->count=$request->count;
 
         $size = explode(',', $request->size);
@@ -107,7 +107,7 @@ class HomeController extends Controller
             foreach ($request->file('image') as $value) {
                 if(substr($value->getClientMimeType(), 0,5)=='image'){
                     $name=str_random(20).$value->getClientOriginalName();
-                    $value->move('images/'.$folder, $name);
+                    $value->move('public/images/'.$folder, $name);
                     $link[]=$name;
                     $check=true;
                 }
@@ -175,7 +175,7 @@ class HomeController extends Controller
             foreach ($request->file('image') as $value) {
                 if(substr($value->getClientMimeType(), 0,5)=='image'){
                     $name=str_random(20).$value->getClientOriginalName();
-                    $value->move('images/'.$folder, $name);
+                    $value->move('public/images/'.$folder, $name);
                     $link[]=$name;
                     $check=true;
                 }
@@ -207,7 +207,7 @@ class HomeController extends Controller
 
 
         $data=$addT::find($id);
-        $path='images/'.$data->folder;
+        $path='public/images/'.$data->folder;
 
         $dataC= $addC::find($data->catalog_id);
         $dataC->count=$dataC->count-1;
@@ -251,7 +251,7 @@ class HomeController extends Controller
                 $addC= new Catalog();
                 foreach ($request->deleteall as $value) {
                    $data=$addT::find($value);
-                   $path='images/'.$data->folder;
+                   $path='public/images/'.$data->folder;
                    $dataC= $addC::find($data->catalog_id);
                    $dataC->count=$dataC->count-1;
                    $dataC->save();
@@ -274,7 +274,7 @@ class HomeController extends Controller
             if($request->table=='slide'){
                 foreach ($request->deleteall as $value) {
                    $data= Slide::find($value);
-                   $path='images/'.$data->folder;
+                   $path='public/images/'.$data->folder;
                    if(!empty($data->folder)){
                     $fl=scandir($path);    
                     if($fl){
@@ -312,23 +312,23 @@ class HomeController extends Controller
             $check=false;
             if(substr($request->file('image')->getClientMimeType(), 0,5)=='image'){
                     $name=str_random(20).$request->file('image')->getClientOriginalName();
-                    $request->file('image')->move('images/'.$folder, $name); // ham move
+                    $request->file('image')->move('public/images/'.$folder, $name); // ham move
                     $check=true;
             }
             if($check){
                 $data->folder=$folder;
                 $data->image = $name;
+                $data->save();  
             }
         
         }  
-        $data->save();  
         return redirect('admin/slide')->with('add','<span>Thêm thành công<span>');
     }
 
     public function slideDelete($id)
     {
         $data= Slide::find($id);
-        $path='images/'.$data->folder;
+        $path='public/images/'.$data->folder;
         if(!empty($data->folder)){
             $fl=scandir($path);    
             if($fl)
@@ -355,7 +355,7 @@ class HomeController extends Controller
         $data->content=$request->content;
         $data->button= $request->button;
         $data->link= $request->link;
-        if($request->hasFile('image')&&$request->hasFile('thumb')){
+        if($request->hasFile('image')){
             $folder=$data->folder;
             if(empty($folder)){
                 $folder=str_random(10);
@@ -368,16 +368,8 @@ class HomeController extends Controller
                      $path='images/'.$data->folder.'/'.$data->image;
                      unlink($path);
             }
-            if(substr($request->file('thumb')->getClientMimeType(), 0,5)=='image'){
-                $name_thumb=str_random(20).$request->file('thumb')->getClientOriginalName();
-                $request->file('thumb')->move('images/'.$folder, $name_thumb); // ham move
-                $check=true;
-                $path='images/'.$data->folder.'/'.$data->thumb;
-                unlink($path);
-            }
             if($check){
                 $data->image =$name;
-                $data->thumb =$name_thumb;
             }
         }
         $data->save();
