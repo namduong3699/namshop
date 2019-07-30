@@ -182,7 +182,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 		$newComment = Comment::orderBy('id', 'desc')->take(10)->get();
 		$orderPro = OrderPro::all();
 		$needContact = NeedContact::orderBy('id', 'desc')->take(10)->get();
-		if(isset($name)) $name = $userQty;
+		$name = $userQty;
 		return view('admin.admin', [
 			'catalogQty' 	 => $catalogQty,
 			'userQty' 		 => $userQty,
