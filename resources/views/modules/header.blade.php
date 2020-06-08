@@ -33,7 +33,7 @@
 		<div class="wrap-menu-desktop">
 			<nav class="limiter-menu-desktop container">
 
-				<!-- Logo desktop -->		
+				<!-- Logo desktop -->
 				<a href="{{ URL::to('index') }}" class="logo">
 					<img src="images/icons/logo2.png" alt="IMG-LOGO" width="80%">
 				</a>
@@ -65,14 +65,14 @@
 					</li>
 
 					<li>
-						<a href="{{ URL::to('about') }}">Giới thiệu</a>
+						<!-- <a href="{{ URL::to('about') }}">Giới thiệu</a> -->
 					</li>
 
 					<li>
 						<a href="{{ URL::to('contact') }}">Liên hệ</a>
 					</li>
 				</ul>
-			</div>	
+			</div>
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m">
@@ -95,12 +95,12 @@
 			</div>
 		</div>
 	</nav>
-</div>	
+</div>
 </div>
 
 <!-- Header Mobile -->
 <div class="wrap-header-mobile">
-	<!-- Logo moblie -->		
+	<!-- Logo moblie -->
 	<div class="logo-mobile">
 		<a href="{{ URL::to('index') }}"><img src="images/icons/logo2.png" alt="IMG-LOGO"></a>
 	</div>
@@ -189,7 +189,7 @@
 		</li>
 
 		<li>
-			<a href="{{ URL::to('about') }}">Giới thiệu</a>
+			<!-- <a href="{{ URL::to('about') }}">Giới thiệu</a> -->
 		</li>
 
 		<li>

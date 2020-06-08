@@ -5,7 +5,7 @@
 		<div class="top-bar">
 			<div class="content-topbar flex-sb-m h-full container">
 				<div class="left-top-bar">
-					
+
 				</div>
 
 				<div class="right-top-bar flex-w h-full">
@@ -33,8 +33,8 @@
 
 		<div class="wrap-menu-desktop how-shadow1">
 			<nav class="limiter-menu-desktop container">
-				
-				<!-- Logo desktop -->		
+
+				<!-- Logo desktop -->
 				<a href="{{ URL::to('index') }}" class="logo">
 					<img src="images/icons/logo.png" alt="IMG-LOGO">
 				</a>
@@ -65,14 +65,14 @@
 					</li>
 
 					<li class="@yield('about')">
-						<a href="{{ URL::to('about') }}">Giới thiệu</a>
+						<!-- <a href="{{ URL::to('about') }}">Giới thiệu</a> -->
 					</li>
 
 					<li class="@yield('contact')">
 						<a href="{{ URL::to('contact') }}">Liên hệ</a>
 					</li>
 				</ul>
-			</div>	
+			</div>
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m">
@@ -85,19 +85,19 @@
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 			</div>
-			
+
 
 			<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-wishlist wishlist-icon" data-notify="{{count(Cart::instance('wishlist')->content())}}">
 				<i class="zmdi zmdi-favorite-outline"></i>
 			</div>
 		</div>
 	</nav>
-</div>	
+</div>
 </div>
 
 <!-- Header Mobile -->
 <div class="wrap-header-mobile">
-	<!-- Logo moblie -->		
+	<!-- Logo moblie -->
 	<div class="logo-mobile">
 		<a href="{{ URL::to('index') }}"><img src="images/icons/logo.png" alt="IMG-LOGO"></a>
 	</div>
@@ -176,7 +176,7 @@
 				<i class="fa fa-angle-right" aria-hidden="true"></i>
 			</span>
 		</li>
-		
+
 		<li>
 			<a href="{{ URL::to('shoping-cart') }}" class="data-label1 label1 rs1" id="menu-label" data-label1="
 			@if(Session('cart'))
@@ -188,7 +188,7 @@
 		</li>
 
 		<li class="@yield('about')">
-			<a href="{{ URL::to('about') }}">Giới thiệu</a>
+			<!-- <a href="{{ URL::to('about') }}">Giới thiệu</a> -->
 		</li>
 
 		<li class="@yield('contact')">
