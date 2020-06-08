@@ -8,7 +8,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/ 
+*/
 use App\Catalog;
 use App\User;
 use App\Product;
@@ -24,7 +24,7 @@ Route::get('/countprice', function(){
 });
 
 Route::get('delete-cart/{id}',function($id){
-	
+
 	$item=Product::find($id);
     $cart= Cart::instance('shopping')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first();
     if($cart!==null){
@@ -40,7 +40,7 @@ Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
 Route::get('/', 'UserController@index');
 Route::get('/index', 'UserController@index');
 Route::get('/home', 'UserController@index');
-Route::get('/about', 'UserController@about');
+// Route::get('/about', 'UserController@about');
 Route::get('/contact', 'UserController@contact');
 Route::post('/contact/send', 'UserController@postContact');
 Route::get('/product', 'UserController@product');
@@ -209,7 +209,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 	Route::get('/catalog/delete/{id}','HomeController@catalogDelete');
 
 	Route::post('/addCatalog','HomeController@catalog')->name('addcatalog');
-	//**********product***********//	
+	//**********product***********//
 
 	Route::get('/product','HomeController@productView');
 
@@ -222,11 +222,11 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 	Route::get('/product/delete/{id}','HomeController@productDelete');
 
 	//**********product***********//
-	Route::post('/deleteall','HomeController@deleteAll')->name('deleteall');	
+	Route::post('/deleteall','HomeController@deleteAll')->name('deleteall');
 	//**********delete all**********//
 	Route::get('/transaction', 'HomeController@getTransaction')->name('transaction');
 	Route::get('/order', 'HomeController@getOrder')->name('order');
-	//**********users***********//	
+	//**********users***********//
 	Route::get('/userManagement', 'HomeController@userManagement');
 	//***********slide**********//
 	Route::get('/slide', 'HomeController@slideView');
@@ -244,5 +244,5 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 		Comment::find($id)->delete();
 		return redirect()->back();
 	});
-	
+
 });

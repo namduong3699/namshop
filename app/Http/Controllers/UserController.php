@@ -30,19 +30,19 @@ class UserController extends Controller
         $slide = Slide::all();
         $new = Product::orderBy('count', 'desc')->take(8)->get();
         return view('index', [
-            'product' => $product, 
+            'product' => $product,
             'slide' => $slide,
             'new'   => $new
         ]);
     }
 
-    public function about(){
-    	return view('about');
-    }
+    // public function about(){
+    // 	return view('about');
+    // }
     public function contact(){
     	return view('contact');
     }
-    
+
     public function product(){
         $product = Product::orderBy('count', 'desc')->paginate(12);
         return view('product_user', ['product' => $product]);
@@ -76,7 +76,7 @@ class UserController extends Controller
                 $order = new OrderPro();
                 $product = Product::where('id', $item->id)->first();
                 $product->count -= $item->qty;
-                $product->save(); 
+                $product->save();
                 $order->transaction_id  =       $trans->id;
                 $order->product_id      =       $item->id;
                 $order->count           =       $item->qty;
@@ -130,7 +130,7 @@ class UserController extends Controller
      $inWish     =   ($inWish->first() !== null) ? true : false;
 
      return view('product-detail', [
-        'product'   => $product, 
+        'product'   => $product,
         'relatePro' => $relatePro,
         'catalogPro'   => $catalogPro,
         'comment'   => $comment,
@@ -162,10 +162,10 @@ public function getAddToCart(Request $req) {
 
     Cart::instance('shopping')->add(
         array(
-            'id'    => $product->id, 
-            'name'  => $product->name, 
-            'qty'   => $qty, 
-            'price' => $product->price * (100 - $product->discount)/100, 
+            'id'    => $product->id,
+            'name'  => $product->name,
+            'qty'   => $qty,
+            'price' => $product->price * (100 - $product->discount)/100,
             'options' => [
                 'image' => $product->image_link,
                 'size'  => $nameSize,
@@ -221,31 +221,31 @@ public function getFilter($key) {
         $products = Product::where([['count', '>', 0]])->orderBy('id', 'desc')->paginate(12);
     }
     if($key == '0-50') {
-        $products = Product::where('price', '<', 50000)->paginate(12);   
+        $products = Product::where('price', '<', 50000)->paginate(12);
     }
     if($key == '50-100') {
         $products = Product::where([
             ['price', '>=', 50000],
             ['price', '<=', 100000],
             ['count', '>', 0]
-        ])->paginate(12);   
+        ])->paginate(12);
     }
     if($key == '100-150') {
         $products = Product::where([
             ['price', '>=', 100000],
             ['price', '<=', 150000],
             ['count', '>', 0]
-        ])->paginate(12);   
+        ])->paginate(12);
     }
     if($key == '150-200') {
         $products = Product::where([
             ['price', '>=', 150000],
             ['price', '<=', 200000],
             ['count', '>', 0]
-        ])->paginate(12);   
+        ])->paginate(12);
     }
     if($key == '200') {
-        $products = Product::where([['price', '>', 200000], ['count', '>', 0]])->paginate(12);   
+        $products = Product::where([['price', '>', 200000], ['count', '>', 0]])->paginate(12);
     }
     return view('product_user', ['product' => $products]);
 }
@@ -294,7 +294,7 @@ public function getAccount() {
             array_push($product, $pro);
         }
         array_push($hist, array(
-            'trans' => $tran, 
+            'trans' => $tran,
             'info' => array(
                 'order' => $order,
                 'pro'   => $product
@@ -302,8 +302,8 @@ public function getAccount() {
         ));
     }
     return view('account', [
-        'user'      => $user, 
-        'address'   => $address, 
+        'user'      => $user,
+        'address'   => $address,
         'tp'        => $tp,
         'history'   => $hist
     ]);
@@ -313,10 +313,10 @@ public function getAddToWishlist($id) {
     $product = Product::find($id);
     Cart::instance('wishlist')->add(
         array(
-            'id'    => $product->id, 
-            'name'  => $product->name, 
-            'qty'   => 1, 
-            'price' => $product->price * (100 - $product->discount)/100, 
+            'id'    => $product->id,
+            'name'  => $product->name,
+            'qty'   => 1,
+            'price' => $product->price * (100 - $product->discount)/100,
             'options' => [
                 'image' => $product->image_link,
                 'folder'=>$product->folder
@@ -376,7 +376,7 @@ public function getEditAccount(Request $req) {
         $user->save();
         $tp             = DB::select('select * from tinh');
         return redirect('account');
-    }      
+    }
 }
 
 public function getNeedContact(Request $req) {
