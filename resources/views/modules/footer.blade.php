@@ -6,7 +6,7 @@
 				<h4 class="stext-301 cl0 p-b-30">
 					Danh mục
 				</h4>
-				
+
 				@if(count($catalog) > 8)
 				<ul style="width: 50%; float: left;">
 					@foreach($catalog as $cata)
@@ -22,7 +22,7 @@
 					@endif
 					@endforeach
 				</ul>
-				@else 
+				@else
 				<ul>
 					@foreach($catalog as $cata)
 					<li><a href="{{ URL::to('product', $cata->id  ) }}" class="stext-107 cl7 hov-cl1 trans-04">{{ $cata->name }}</a></li>
@@ -46,7 +46,7 @@
 
 					<li class="p-b-10">
 						<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-							Đặt hàng 
+							Đặt hàng
 						</a>
 					</li>
 
@@ -110,7 +110,7 @@
 
 		<div class="p-t-40">
 			<p class="stext-107 cl6 txt-center">
-				Dương Hoài Nam - Nguyễn Thế Nam
+				<!-- Dương Hoài Nam - Nguyễn Thế Nam -->
 			</p>
 		</div>
 	</div>
