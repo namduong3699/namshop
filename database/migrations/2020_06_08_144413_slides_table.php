@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ShoppingCartTable extends Migration
+class SlidesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class ShoppingCartTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_cart', function(Blueprint $table) {
+        Schema::create('slides', function(Blueprint $table) {
             $table->increments('id');
-            $table->text('identifier');
-            $table->text('instance');
+            $table->text('title');
             $table->text('content');
+            $table->text('button');
+            $table->text('link');
+            $table->text('image');
+            $table->text('folder');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class ShoppingCartTable extends Migration
      */
     public function down()
     {
-        Schema::drop('shopping_cart');
+        Schema::drop('slides');
     }
 }
