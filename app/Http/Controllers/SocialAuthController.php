@@ -9,7 +9,7 @@ use App\Services\SocialAccountService;
 use Illuminate\Support\Facades\Log;
 use Socialite;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,26 +34,26 @@ class SocialAuthController extends Controller
 	//Facebook
 	public function redirectFB()
 	{
-		return Socialite::driver('facebook')->redirect();   
-	}   
+		return Socialite::driver('facebook')->redirect();
+	}
 
 	public function callbackFB()
 	{
         // Sau khi xác thực Facebook chuyển hướng về đây cùng với một token
-        // Các xử lý liên quan đến đăng nhập bằng mạng xã hội cũng đưa vào đây. 
-		$user = Socialite::driver('facebook')->user();  
+        // Các xử lý liên quan đến đăng nhập bằng mạng xã hội cũng đưa vào đây.
+		$user = Socialite::driver('facebook')->user();
 	}
 
 	//Google
 	public function redirectGG()
 	{
-		return Socialite::driver('google')->stateless()->redirect();   
-	}   
+		return Socialite::driver('google')->stateless()->redirect();
+	}
 
 	public function callbackGG()
 	{
         // Sau khi xác thực Google chuyển hướng về đây cùng với một token
-        // Các xử lý liên quan đến đăng nhập bằng mạng xã hội cũng đưa vào đây. 
+        // Các xử lý liên quan đến đăng nhập bằng mạng xã hội cũng đưa vào đây.
 		$user = Socialite::driver('google')->stateless()->user();
 		$tempUser = User::where('email', $user->email)->first();
 		// dd($user);
@@ -76,9 +76,9 @@ class SocialAuthController extends Controller
 			$newUser->inbag = '';
 			$newUser->save();
 			Auth::attempt(['email' => $user->email, 'password' => $user->user['id']]);
-			return redirect('/');  
+			return redirect('/');
 		}
-		return redirect('/');  
+		return redirect('/');
 	}
 
 }

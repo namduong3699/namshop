@@ -19,9 +19,10 @@ class UsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->unsignedInteger('level');
+            $table->boolean('admin_access')->default(false);
             $table->string('phone');
-            $table->text('address');
-            $table->longText('inbag');
+            $table->text('address')->nullable();
+            $table->longText('inbag')->nullable();
             $table->string('remember_token');
             $table->timestamps();
         });

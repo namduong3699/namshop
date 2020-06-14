@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tinh extends Model
+class Confirm extends Model
 {
-	protected $table="tinh";
+	protected $table="confirmuser";
 	public  $timestamps =false;
     //
 }
+

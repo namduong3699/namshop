@@ -9,13 +9,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Catalog;
-use App\User;
-use App\Product;
-use App\Transaction;
-use App\Comment;
-use App\OrderPro;
-use App\NeedContact;
+use App\Models\Catalog;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\Comment;
+use App\Models\OrderPro;
+use App\Models\NeedContact;
 
 
 Route::get('/countprice', function(){
@@ -94,8 +94,8 @@ Route::get('/auth/google/callback', "SocialAuthController@callbackGG");
 * Logout
 */
 Route::post('/logout', function(){
-	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->id)->delete();
-	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->email)->delete();
+	DB::table('shopping_cart')->where('identifier', '=', Auth::user()->id)->delete();
+	DB::table('shopping_cart')->where('identifier', '=', Auth::user()->email)->delete();
 	Cart::instance('shopping')->store(Auth::user()->id);
 	Cart::instance('wishlist')->store(Auth::user()->email);
 	Cart::instance('shopping')->destroy();
@@ -105,8 +105,8 @@ Route::post('/logout', function(){
 })->name('logout');
 
 Route::get('/logout',function(){
-	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->id)->delete();
-	DB::table('shoppingcart')->where('identifier', '=', Auth::user()->email)->delete();
+	DB::table('shopping_cart')->where('identifier', '=', Auth::user()->id)->delete();
+	DB::table('shopping_cart')->where('identifier', '=', Auth::user()->email)->delete();
 	Cart::instance('shopping')->store(Auth::user()->id);
 	Cart::instance('wishlist')->store(Auth::user()->email);
 	Auth::logout();

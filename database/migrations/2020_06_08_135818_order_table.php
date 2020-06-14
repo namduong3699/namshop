@@ -19,7 +19,7 @@ class OrderTable extends Migration
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('count');
             $table->unsignedInteger('amount');
-            $table->longText('data');
+            $table->longText('data')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

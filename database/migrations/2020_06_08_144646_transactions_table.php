@@ -22,8 +22,8 @@ class TransactionsTable extends Migration
             $table->unsignedInteger('amount');
             $table->string('payment');
             $table->text('payment_info');
-            $table->text('message');
-            $table->text('security');
+            $table->text('message')->nullbale();
+            $table->text('security')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ class TransactionsTable extends Migration
      */
     public function down()
     {
-        Shema::drop('transactions');
+        Schema::drop('transactions');
     }
 }

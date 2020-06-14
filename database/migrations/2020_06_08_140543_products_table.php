@@ -17,15 +17,15 @@ class ProductsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('catalog_id');
             $table->string('name');
-            $table->unsignedInteger('count');
-            $table->text('size');
-            $table->text('color');
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('discount');
+            $table->unsignedInteger('count')->default(0);
+            $table->text('size')->nullable();
+            $table->text('color')->nullable();
+            $table->unsignedInteger('price')->default(0);
+            $table->unsignedInteger('discount')->default(0);
             $table->text('folder');
             $table->text('image_link');
             $table->text('image_list');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

@@ -3,9 +3,9 @@
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
-    <base href="{{ asset('') }}public/">
+    <base href="{{ asset('') }}/">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -15,17 +15,17 @@
 	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/main_login.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/util_login.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/main_login.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/util_login.css') }}">
 	<!--===============================================================================================-->
 </head>
 <body>
@@ -33,16 +33,16 @@
 		<div class="container-login">
 			<div class="background" style="background-image: url('images/about-01.jpg'); float: left;">
 				<div class="p-l-55 p-r-55 p-t-65 p-b-54">
-					
+
 				</div>
-			</div> 
+			</div>
 			<div class="container-login100" style="float: right;">
 				<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 					<form action="{{url('login')}}" method="POST" class="login100-form validate-form">
 						<span class="login100-form-title p-b-49">
 							Đăng nhập
 						</span>
-						
+
 						@if($errors->has('errorlogin'))
 						<div class="alert alert-danger">
 							<strong style="display: block; text-align: center; color: #e74c3c; margin-bottom: 20px;">{{$errors->first('errorlogin')}}</strong>
@@ -86,7 +86,7 @@
 
 						<div class="txt1 text-center p-t-54 p-b-20">
 							<span>
-								Đăng nhập bằng 
+								Đăng nhập bằng
 							</span>
 						</div>
 

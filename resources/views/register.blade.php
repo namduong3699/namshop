@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href=" {{ asset('') }}public/">
+    <base href=" {{ asset('') }}/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -83,7 +83,7 @@
                             </select>
                         </div>
 
-                        
+
 
 
                         <div class="form-group" >
@@ -103,7 +103,7 @@
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!-- <script src="js/register_main.js"></script> -->
     <script>
-        $(document).ready(function(){ 
+        $(document).ready(function(){
             $("#thanh_pho").change(function(){
                 var matp = $(this).val();
                 $.get('{{ URL::to('getInfo') }}', {'matp':matp}, function(data) {
