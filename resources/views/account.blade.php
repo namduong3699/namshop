@@ -17,9 +17,9 @@ Tài khoản
 
 <body class="animsition">
 
-	
 
-	
+
+
 	<form class="bg0 p-t-50 p-b-85" style="margin-top: 100px">
 		<div class="container">
 			<div class="row">
@@ -29,13 +29,13 @@ Tài khoản
 							Thông tin tài khoản
 						</h4>
 						<div class="edit-acc p-l-17">
-							<i class="fa fa-key" aria-hidden="true"></i> <a {{-- href="#" --}} id="bt-change-pass" style="cursor: pointer;">Đổi mật khẩu</a>	
+							<i class="fa fa-key" aria-hidden="true"></i> <a {{-- href="#" --}} id="bt-change-pass" style="cursor: pointer;">Đổi mật khẩu</a>
 						</div>
 						<div class="edit-acc p-l-17 p-b-30">
-							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a {{-- href="#" --}}  id="bt-edit-account" style="cursor: pointer;">Sửa thông tin</a>	
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a {{-- href="#" --}}  id="bt-edit-account" style="cursor: pointer;">Sửa thông tin</a>
 						</div>
-						
-						
+
+
 						<div class=" col-xl-12 m-lr-auto m-b-25 p-lr-0">
 							<div class=" m-lr-0-xl">
 								<div class="new-info">
@@ -45,23 +45,23 @@ Tài khoản
 
 									<div class="new-table-info">
 										<table>
-											<tr> 
+											<tr>
 												<td>
-													Họ & tên: 
+													Họ & tên:
 												</td>
 												<td>
 													{{$user->name}}
 												</td>
 											</tr>
-											<tr> 
+											<tr>
 												<td>
-													SĐT: 
+													SĐT:
 												</td>
 												<td>
 													{{$user->phone}}
 												</td>
 											</tr>
-											<tr> 
+											<tr>
 												<td>
 													Email:
 												</td>
@@ -69,8 +69,8 @@ Tài khoản
 													{{$user->email}}
 												</td>
 											</tr>
-											<tr> 
-												<td style="vertical-align: top;"> 
+											<tr>
+												<td style="vertical-align: top;">
 													Địa chỉ:
 
 												</td>
@@ -83,36 +83,35 @@ Tài khoản
 									@endif
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
-				</div> 
+				</div>
 
 				<div class="col-lg-10 col-xl-8 m-lr-auto m-b-50" id="car-table">
-					{{-- {{dd($history)}} --}}
 					<h4 class="mtext-109 cl2 p-b-10 m-t-30 m-b-60" style="border-bottom: 1px solid #eee">
 						Lịch sử mua hàng
 					</h4>
-					@if($history)
-					@foreach($history as $key => $hist)
+					@if($transactions)
+					@foreach($transactions as $transaction)
 					<table class="trans-info">
 						<tr>
-							<td>Đơn hàng: <span style="cursor: pointer; color: #a29bfe;">#{{$hist['trans']->id}}</span></td>
-							<td>Đặt ngày: {{$hist['trans']->createdat}}</td>
+							<td>Đơn hàng: <span style="cursor: pointer; color: #a29bfe;">#{{$transaction->id}}</span></td>
+							<td>Đặt ngày: {{$transaction->created_at}}</td>
 						</tr>
 						<tr>
-							<td>Tình trạng: @if($hist['trans']->status == 0) chưa giao hàng @else đã giao hàng @endif</td>
-							<td>Phương thức thanh toán: {{$hist['trans']->payment_info}} @if($hist['trans']->payment == 'none') (chưa thanh toán) @else (đã thanh toán) @endif</td>
+							<td>Tình trạng: @if($transaction->status == 0) chưa giao hàng @else đã giao hàng @endif</td>
+							<td>Phương thức thanh toán: {{$transaction->payment_info}} @if($transaction->payment == 'none') (chưa thanh toán) @else (đã thanh toán) @endif</td>
 						</tr>
 						<tr>
-							<td colspan="2">Địa chỉ nhận hàng: {{implode(", ", array_reverse(json_decode($hist['trans']->message, true)))}}</td><td></td>
+							<td colspan="2">Địa chỉ nhận hàng: {{implode(", ", array_reverse(json_decode($transaction->message, true)))}}</td><td></td>
 						</tr>
 					</table>
-					
+
 
 
 
 					<div class="m-l-0 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart" id="cart">						
+						<div class="wrap-table-shopping-cart" id="cart">
 							<table class="table-shopping-cart p-b-15">
 								<tr class="table_head">
 									<th class="column-1">Sản phẩm</th>
@@ -123,32 +122,31 @@ Tài khoản
 									<th class="column-4">Số lượng</th>
 									<th class="column-5">Tổng cộng</th>
 								</tr>
-								
-								@foreach($hist['info']['order'] as $product)
-								{{-- {{dd($product)}} --}}
+
+								@foreach($transaction->orders as $order)
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1 p-t-40">
-											<img src="images/{{ $hist['info']['pro'][$loop->index]->folder }}/{{ $hist['info']['pro'][$loop->index]->image_link }}" alt="IMG">
+											<img src="images/{{ $order->product->folder }}/{{ $order->product->image_link }}" alt="IMG">
 										</div>
 									</td>
-									<td class="column-2"> <a href="{{URL::to('product-detail/' .$hist['info']['pro'][$loop->index]->id)}}" style="color: #636e72">{{$hist['info']['pro'][$loop->index]->name}}</a> </td>
-									<td class="column-3"> {{number_format($hist['info']['pro'][$loop->index]->price)}} VNĐ</td>
-									<td class="column-3">{{ json_decode($product->data, true)['size'] }}</td>
-									<td class="column-3">{{ json_decode($product->data, true)['color'] }}</td>
+									<td class="column-2"> <a href="{{URL::to('product-detail/' .$order->product->id)}}" style="color: #636e72">{{$order->product->name}}</a> </td>
+									<td class="column-3"> {{number_format($order->product->price)}} VNĐ</td>
+									<td class="column-3">{{ json_decode($order->data, true)['size'] }}</td>
+									<td class="column-3">{{ json_decode($order->data, true)['color'] }}</td>
 									<td class="column-3">
-										{{ $product->count }}
+										{{ $order->count }}
 									</td>
-									<td class="column-5">{{ number_format($product->amount) }} VNĐ</td>
+									<td class="column-5">{{ number_format($order->amount) }} VNĐ</td>
 								</tr>
 								@endforeach
-								
+
 							</table>
 						</div>
 						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-l-40 p-lr-15-sm p-r-20 txt-center m-b-70" style="text-align: center;">
 							@if(Cart::instance('shopping')->content())
-							<b>Tổng cộng:</b> <strong>{{ number_format($hist['trans']->amount) }} VNĐ</strong>
-							@else 
+							<b>Tổng cộng:</b> <strong>{{ number_format($transaction->amount) }} VNĐ</strong>
+							@else
 							<b>Giỏ hàng rỗng</b>
 							@endif
 						</div>
@@ -160,7 +158,7 @@ Tài khoản
 					</h4>
 					@endif
 				</div>
-				
+
 				{{-- ĐỔI THÔNG TIN TÀI KHOẢN --}}
 				<div class="col-lg-10 col-xl-8 m-lr-auto m-b-50 dp-none" id="edit-account-tb">
 					<h4 class="mtext-109 cl2 p-b-10 p-l-20 m-t-30">
@@ -169,9 +167,9 @@ Tài khoản
 					<form method="get">
 						{{ csrf_field() }}
 						<table class="m-t-55">
-							<tr> 
+							<tr>
 								<td>
-									Họ & tên: 
+									Họ & tên:
 								</td>
 								<td>
 									<div class="wrap-input1 w-full p-b-4">
@@ -180,9 +178,9 @@ Tài khoản
 									</div>
 								</td>
 							</tr>
-							<tr> 
+							<tr>
 								<td class="p-b-20">
-									Số điện thoại: 
+									Số điện thoại:
 								</td>
 								<td class="p-b-20">
 									<div class="wrap-input1 w-full p-b-4">
@@ -191,8 +189,8 @@ Tài khoản
 									</div>
 								</td>
 							</tr>
-							<tr> 
-								<td style="vertical-align: top;"> 
+							<tr>
+								<td style="vertical-align: top;">
 									Địa chỉ:
 								</td>
 								<td>
@@ -236,7 +234,7 @@ Tài khoản
 					<form method="get">
 						{{ csrf_field() }}
 						<table class="m-t-55">
-							<tr> 
+							<tr>
 								<td class="p-b-20">
 									Mật khẩu cũ:
 								</td>
@@ -247,9 +245,9 @@ Tài khoản
 									</div>
 								</td>
 							</tr>
-							<tr> 
+							<tr>
 								<td>
-									Mật khẩu mới: 
+									Mật khẩu mới:
 								</td>
 								<td>
 									<div class="wrap-input1 w-full p-b-4">
@@ -258,9 +256,9 @@ Tài khoản
 									</div>
 								</td>
 							</tr>
-							<tr> 
+							<tr>
 								<td>
-									Nhập lại mật khẩu: 
+									Nhập lại mật khẩu:
 								</td>
 								<td>
 									<div class="wrap-input1 w-full p-b-4">
@@ -283,11 +281,11 @@ Tài khoản
 
 
 
-	
 
 
 
-	<!--===============================================================================================-->	
+
+	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
@@ -303,7 +301,7 @@ Tài khoản
 		// 		dropdownParent: $(this).next('.dropDownSelect2')
 		// 	});
 		// })
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 			$("#thanh_pho").change(function(){
 				var matp = $(this).val();
 				$.get('{{ URL::to('getInfo') }}', {'matp':matp}, function(data) {
@@ -323,7 +321,7 @@ Tài khoản
 				if(pass1 == '' || pass2 == '' || oldPass == '') swal(' ', "Phải nhập đầy đủ thông tin!", "error");
 				else if(pass1.length < 6 || pass2.length < 6) swal(' ', "Mật khẩu phải có ít nhất 6 ký tự!", "error");
 				else if(pass1 != pass2) swal(' ', "Nhập lại mật khẩu mới không đúng", "error");
-				else 
+				else
 					$.get('{{ URL::to('editAccount') }}', {'oldPass':oldPass, 'newPass':pass1}, function(data) {
 						if(data == 'Mật khẩu sai!') swal(' ', data, "error");
 						else swal(' ', data, "success");

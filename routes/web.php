@@ -14,7 +14,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Comment;
-use App\Models\OrderPro;
+use App\Models\Order;
 use App\Models\NeedContact;
 
 
@@ -23,17 +23,7 @@ Route::get('/countprice', function(){
 	else return 0;
 });
 
-Route::get('delete-cart/{id}',function($id){
-
-	$item=Product::find($id);
-    $cart= Cart::instance('shopping')->search(function($cartItem, $rowId) use($item) {return $cartItem->id == $item->id;})->first();
-    if($cart!==null){
-
-        Cart::instance('shopping')->remove($cart->rowId);
-        }
-    return Cart::instance('shopping')->count();
-
-});
+Route::get('delete-cart/{id}', 'CartController@delete');
 
 Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
 
@@ -49,13 +39,7 @@ Route::get('/blog', 'UserController@blog');
 Route::get('/blog-detail', 'UserController@blogdetail');
 Route::get('/product-detail/{id}', 'UserController@productdetail');
 Route::get('/product/{type}', 'UserController@catalog');
-Route::get('/productshow/{id}',function($id){
-	$data =  DB::select("select * from product where id = ?",[$id]);
-	$data[0]->image_list = json_decode($data[0]->image_list,true);
-	$data[0]->size = json_decode($data[0]->size,true);
-	$data[0]->color = json_decode($data[0]->color,true);
-	echo json_encode($data);
-});
+Route::get('/productshow/{id}', 'UserController@getProduct');
 Route::get('account', 'UserController@getAccount');
 Route::post('comment', 'UserController@postComment');
 Route::get('editAccount', 'UserController@getEditAccount');
@@ -180,7 +164,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 		$productQty = Product::count();
 		$transactionQty = Transaction::count();
 		$newComment = Comment::orderBy('id', 'desc')->take(10)->get();
-		$orderPro = OrderPro::all();
+		$orders = Order::all();
 		$needContact = NeedContact::orderBy('id', 'desc')->take(10)->get();
 		return view('admin.admin', [
 			'catalogQty' 	 => $catalogQty,
@@ -188,7 +172,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 			'productQty' 	 => $productQty,
 			'transactionQty' => $transactionQty,
 			'newComment' 	 => $newComment,
-			'orderPro'		 => $orderPro,
+			'orders'		 => $orders,
 			'needContact'	 => $needContact
 		]);
 	});

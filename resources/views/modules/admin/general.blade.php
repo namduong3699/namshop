@@ -103,7 +103,7 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-8">
-         
+
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -118,7 +118,6 @@
                                     <th>#</th>
                                     <th>Mã đơn</th>
                                     <th>Mã giao dịch</th>
-                                    <th>Mã sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
                                     <th>Màu sắc</th>
@@ -128,18 +127,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($orderPro as $order)
+                                @foreach($orders as $order)
                                 <tr>
                                     <td>{{$loop->index}}</td>
                                     <td>{{$order->id}}</td>
                                     <td>{{$order->transaction_id}}</td>
-                                    <td>{{$order->product_id}}</td>
-                                    <td>{{DB::select("select 'name' from product where id = ?" ,[$order->product_id])[0]->name}}</td>
+                                    <td>{{ $order->product->name }}</td>
                                     <td>{{$order->count}}</td>
                                     <td>{{json_decode($order->data)->color}}</td>
                                     <td>{{json_decode($order->data)->size}}</td>
                                     <td>{{($order->status) ? 'Đã giao' : 'Chưa giao'}}</td>
-                                    <td>{{$order->createat}}</td>
+                                    <td>{{$order->created_at}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -161,11 +159,11 @@
                 <div class="panel-body">
                     <div class="list-group">
                         @foreach($newComment as $newCmt)
-                        <a href="{{URL::to('product-detail', $newCmt->product_Id)}}" class="list-group-item">
+                        <a href="{{URL::to('product-detail', $newCmt->product_id)}}" class="list-group-item">
                             <i class="fa fa-comment fa-fw"></i> {{$newCmt->user_name}}
-                            <span class="pull-right text-muted small"><em>{{$newCmt->time}}</em>
+                            <span class="pull-right text-muted small"><em>{{$newCmt->created_at}}</em>
                             </span>
-                            <p style="margin-top: 15px;">{{DB::select("select `name` from product where id = ?" ,[$newCmt->product_Id])[0]->name}}</p>
+                            <p style="margin-top: 15px;">{{ $newCmt->product->name }}</p>
                             <p>{{$newCmt->content}}</p>
                         </a>
                         @endforeach
@@ -215,13 +213,13 @@
         </div>
         <!-- /.panel-body -->
     </div>
-    
+
     <!-- /.panel -->
     <div class="chat-panel panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-comments fa-fw"></i>
             Cần từ vấn
-            
+
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -243,7 +241,7 @@
                 </li>
                 @endforeach
             </ul>
-            
+
         </div>
         <!-- /.panel-body -->
         <div class="panel-footer">

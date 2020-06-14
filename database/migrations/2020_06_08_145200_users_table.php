@@ -18,12 +18,12 @@ class UsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedInteger('level');
+            $table->unsignedInteger('level')->default(0);
             $table->boolean('admin_access')->default(false);
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->longText('inbag')->nullable();
-            $table->string('remember_token');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

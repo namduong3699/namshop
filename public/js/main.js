@@ -18,12 +18,12 @@
         timeoutCountdown: 5000,
         onLoadEvent: true,
         browser: [ 'animation-duration', '-webkit-animation-duration'],
-        overlay : false,       
+        overlay : false,
         overlayClass : 'animsition-overlay-slide',
         overlayParentElement : 'html',
         transition: function(url){ window.location.href = url; }
     });
-    
+
     /*[ Back to top ]
     ===========================================================*/
     var windowH = $(window).height()/2;
@@ -52,26 +52,26 @@
     else {
         var posWrapHeader = 0;
     }
-    
+
 
     if($(window).scrollTop() > posWrapHeader) {
         $(headerDesktop).addClass('fix-menu-desktop');
-        $(wrapMenu).css('top',0); 
-    }  
+        $(wrapMenu).css('top',0);
+    }
     else {
         $(headerDesktop).removeClass('fix-menu-desktop');
-        $(wrapMenu).css('top',posWrapHeader - $(this).scrollTop()); 
+        $(wrapMenu).css('top',posWrapHeader - $(this).scrollTop());
     }
 
     $(window).on('scroll',function(){
         if($(this).scrollTop() > posWrapHeader) {
             $(headerDesktop).addClass('fix-menu-desktop');
-            $(wrapMenu).css('top',0); 
-        }  
+            $(wrapMenu).css('top',0);
+        }
         else {
             $(headerDesktop).removeClass('fix-menu-desktop');
-            $(wrapMenu).css('top',posWrapHeader - $(this).scrollTop()); 
-        } 
+            $(wrapMenu).css('top',posWrapHeader - $(this).scrollTop());
+        }
     });
 
 
@@ -104,7 +104,7 @@
                 $(arrowMainMenu).removeClass('turn-arrow-main-menu-m');
             }
         });
-            
+
         }
     });
 
@@ -137,7 +137,7 @@
             var filterValue = $(this).attr('data-filter');
             $topeContainer.isotope({filter: filterValue});
         });
-        
+
     });
 
     // init Isotope
@@ -176,7 +176,7 @@
         if($('.js-show-search').hasClass('show-search')) {
             $('.js-show-search').removeClass('show-search');
             $('.panel-search').slideUp(400);
-        }    
+        }
     });
 
     $('.js-show-search').on('click',function(){
@@ -186,7 +186,7 @@
         if($('.js-show-filter').hasClass('show-filter')) {
             $('.js-show-filter').removeClass('show-filter');
             $('.panel-filter').slideUp(400);
-        }    
+        }
     });
 
 
@@ -195,7 +195,6 @@
     /*==================================================================
     [ Cart ]*/
     $('.js-show-cart').on('click',function(){
-        console.log(1);
         $('.js-panel-cart').addClass('show-header-cart');
     });
 
@@ -226,15 +225,15 @@
         var numProduct = Number($(this).next().val());
         if(numProduct > 0) {
             $(this).next().val(numProduct - 1);
-            // console.log(parseInt($(this).parent().parent().next().text()));
-            // console.log(parseInt($(this).parent().parent().prev().prev().prev().text()));
+            // (parseInt($(this).parent().parent().next().text()));
+            // (parseInt($(this).parent().parent().prev().prev().prev().text()));
             var price= parseInt($(this).parent().parent().prev().prev().prev().text().replace(',','')) *(numProduct - 1);
             $(this).parent().parent().next().text(price.toLocaleString('EN')+ ' VNĐ');
             if(numProduct == 1)
             {
                 $(this).parent().parent().parent().addClass('remove-product');
             // console.log();
-            }   
+            }
         }
 
     });
@@ -293,13 +292,13 @@
             }
         });
     });
-    
+
     /*==================================================================
     [ Show modal1 ]*/
     $('.js-show-modal1').on('click',function(e){
         e.preventDefault();
         $('.js-modal1').addClass('show-modal1');
-        
+
         var id= $(this).data('id');
         $.ajax({
             url: 'productshow/'+id,
@@ -307,36 +306,34 @@
             async:false,
             dataType: 'json',
             success: function(data){
-                // console.log(data[0]);
-                $('#infor').text(data[0].description);
-                $('#price').text(Math.round(data[0].price*(1-data[0].discount/100)).toLocaleString('EN')+" VNĐ");
-                $('#nameItems').text(data[0].name).attr('data-id',id);
+                $('#infor').text(data.description);
+                $('#price').text(Math.round(data.price*(1-data.discount/100)).toLocaleString('EN')+" VNĐ");
+                $('#nameItems').text(data.name).attr('data-id',id);
                 $('#dots-add').html(' ');
                 $('#slick-add').html(' ');
-                data[0].image_list.forEach(function(el,index){
+                data.image_list.forEach(function(el,index){
                     if(index==0){
-                    $('#dots-add').append('<li class="cl slick-active" role="presentation" data-slick-index="'+index+'"><img src=" images/'+data[0].folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
-                    $('#slick-add').append('<div class="cc item-slick3 slick-slide slick-current slick-active" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 513px; position: relative; left: 0px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'" alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/'+data[0].folder+'/'+el+'" tabindex="0"><i class="fa fa-expand"></i></a></div></div>');
+                    $('#dots-add').append('<li class="cl slick-active" role="presentation" data-slick-index="'+index+'"><img src=" images/'+data.folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
+                    $('#slick-add').append('<div class="cc item-slick3 slick-slide slick-current slick-active" data-thumb=" images/'+data.folder+'/'+el+'" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide20" aria-describedby="slick-slide-control20" style="width: 513px; position: relative; left: 0px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data.folder+'/'+el+'" alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/'+data.folder+'/'+el+'" tabindex="0"><i class="fa fa-expand"></i></a></div></div>');
                     }
                     else{
-                        $('#dots-add').append('<li class="cl " role="presentation" data-slick-index="'+index+'"><img src=" images/'+data[0].folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
-                        $('#slick-add').append('<div class="cc item-slick3 slick-slide" data-thumb=" images/'+data[0].folder+'/'+el+'" data-slick-index="'+index+'" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide21" aria-describedby="slick-slide-control21" style="width: 513px; position: relative; left: '+(-513*index)+'px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data[0].folder+'/'+el+'"alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href=" images/'+data[0].folder+'/'+el+'" tabindex="-1"><i class="fa fa-expand"></i></a></div></div>');
+                        $('#dots-add').append('<li class="cl " role="presentation" data-slick-index="'+index+'"><img src=" images/'+data.folder+'/'+el+'" ><div class="slick3-dot-overlay"></div></li>');
+                        $('#slick-add').append('<div class="cc item-slick3 slick-slide" data-thumb=" images/'+data.folder+'/'+el+'" data-slick-index="'+index+'" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide21" aria-describedby="slick-slide-control21" style="width: 513px; position: relative; left: '+(-513*index)+'px; top: 0px; "><div class="wrap-pic-w pos-relative"><img src=" images/'+data.folder+'/'+el+'"alt="IMG-PRODUCT"><a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href=" images/'+data.folder+'/'+el+'" tabindex="-1"><i class="fa fa-expand"></i></a></div></div>');
                     }
-                    // console.log(index+el);
                     $('#select-size').html(' ');
-                    data[0].size.forEach(function(el,index){
+                    data.size.forEach(function(el,index){
                         $('#select-size').append('<option value="'+index+'"> '+el+'</option>');
                     });
                     $('#select-color').html(' ');
-                    data[0].color.forEach(function(el,index){
+                    data.color.forEach(function(el,index){
                         $('#select-color').append('<option value="'+index+'"> '+el+'</option>');
                     });
-                    $('#buy').attr('data-id',data[0].id);
+                    $('#buy').attr('data-id',data.id);
                 });
             }
-        }) 
+        })
         .done(function() {
-           
+
         })
         .always(function(){
              $('.slick3-dots li.cl').on('click', function(event) {

@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Slide;
 use App\Models\Transaction;
-use App\Models\OrderPro;
+use App\Models\Order;
 use App\Models\Comment;
 class HomeController extends Controller
 {
@@ -366,7 +366,7 @@ class HomeController extends Controller
                     $request->file('image')->move('images/'.$folder, $name);
                     $check=true;
                      $path='images/'.$data->folder.'/'.$data->image;
-                     unlink($path);
+                    //  unlink($path);
             }
             if($check){
                 $data->image =$name;
@@ -382,8 +382,8 @@ class HomeController extends Controller
     }
 
     public function getOrder() {
-        $orderPro = OrderPro::all();
-        return view('admin.order', ['orderPro' => $orderPro]);
+        $orders = Order::all();
+        return view('admin.order', ['orders' => $orders]);
     }
 
     public function getComment() {
