@@ -16,7 +16,7 @@ class CatalogsTable extends Migration
         Schema::create('catalogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->unsignedInteger('count');
+            $table->unsignedInteger('count')->default(0);
             $table->timestamps();
         });
     }

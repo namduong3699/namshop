@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SlidesTable extends Migration
+class QuanhuyenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class SlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slides', function(Blueprint $table) {
+        Schema::create('quanhuyen', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('title');
-            $table->text('content');
-            $table->text('button');
-            $table->text('link');
-            $table->text('image');
-            $table->text('folder');
-            $table->timestamps();
+            $table->unsignedInteger('maqh')->unique();
+            $table->string('name');
+            $table->string('type');
+            $table->unsignedInteger('matp')->unique();
         });
     }
 
@@ -32,6 +29,6 @@ class SlidesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('slides');
+        Schema::drop('quanhuyen');
     }
 }

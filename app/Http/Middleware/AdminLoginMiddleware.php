@@ -17,17 +17,16 @@ class AdminLoginMiddleware
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            $user= Auth::user();
-             // echo $user->level;  
-             if($user->level==1){
+            $user = Auth::user();
+             if($user->admin_access){
                return $next($request);
              }else{
                return redirect('/');
              }
-            
+
         }else{
             return redirect('/login');
         }
         }
-        
+
 }

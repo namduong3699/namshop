@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Catalog;
-use App\Product;
-use App\User;
-use App\Slide;
-use App\Transaction;
-use App\OrderPro;
-use App\Comment;
+use App\Models\Catalog;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Slide;
+use App\Models\Transaction;
+use App\Models\OrderPro;
+use App\Models\Comment;
 class HomeController extends Controller
 {
     /**
@@ -48,7 +48,7 @@ class HomeController extends Controller
         $addT = new Catalog();
         $data= $addT::all();
         return view('admin.catalog',['data'=>$data]);
-    }   
+    }
     public function catalogDelete($id)
     {
         $addT = new Catalog();
@@ -60,7 +60,7 @@ class HomeController extends Controller
     {
         $addT = new Catalog();
         $data=$addT::find($id);
-        return view('admin.catalogedit',['data'=>$data]); 
+        return view('admin.catalogedit',['data'=>$data]);
     }
     public function catalogUpdate(Request $request)
     {
@@ -214,7 +214,7 @@ class HomeController extends Controller
         $dataC->save();
 
         if(!empty($data->folder)){
-            $fl=scandir($path);    
+            $fl=scandir($path);
             if($fl){
                 foreach ($fl as $key=> $value) {
                     if($key>1){
@@ -257,7 +257,7 @@ class HomeController extends Controller
                    $dataC->save();
 
                    if(!empty($data->folder)){
-                    $fl=scandir($path);    
+                    $fl=scandir($path);
                     if($fl){
                         foreach ($fl as $key=> $value) {
                             if($key>1){
@@ -276,7 +276,7 @@ class HomeController extends Controller
                    $data= Slide::find($value);
                    $path='public/images/'.$data->folder;
                    if(!empty($data->folder)){
-                    $fl=scandir($path);    
+                    $fl=scandir($path);
                     if($fl){
                         foreach ($fl as $key=> $value) {
                             if($key>1){
@@ -318,10 +318,10 @@ class HomeController extends Controller
             if($check){
                 $data->folder=$folder;
                 $data->image = $name;
-                $data->save();  
+                $data->save();
             }
-        
-        }  
+
+        }
         return redirect('admin/slide')->with('add','<span>Thêm thành công<span>');
     }
 
@@ -330,7 +330,7 @@ class HomeController extends Controller
         $data= Slide::find($id);
         $path='public/images/'.$data->folder;
         if(!empty($data->folder)){
-            $fl=scandir($path);    
+            $fl=scandir($path);
             if($fl)
             {
                 foreach ($fl as $key=> $value) {

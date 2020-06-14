@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SlidesTable extends Migration
+class TinhTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class SlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slides', function(Blueprint $table) {
+        Schema::create('tinh', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('title');
-            $table->text('content');
-            $table->text('button');
-            $table->text('link');
-            $table->text('image');
-            $table->text('folder');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('type');
+            $table->unsignedInteger('matp')->unique();
         });
     }
 
@@ -32,6 +28,6 @@ class SlidesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('slides');
+        Schema::drop('tinh');
     }
 }

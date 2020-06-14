@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Hash;
-use App\User;
-use App\Tinh;
-use App\Huyen;
-use App\Xa;
+use App\Models\User;
+use App\Models\Tinh;
+use App\Models\Huyen;
+use App\Models\Xa;
 use App\Confirm;
 use Mail;
 use App\Mail\CheckEmail;
@@ -75,7 +75,7 @@ class RegisterController extends Controller
             $user->password= Hash::make($password);
             $user->phone= $request->phone;
             $address = array('tinh' => $request->tinh, 'huyen' => $request->huyen,'xa' => $request->xa);
-            $user->address= json_encode($address);  
+            $user->address= json_encode($address);
             $user->save();
 
             $code = new Confirm();
@@ -135,13 +135,13 @@ class RegisterController extends Controller
         // echo var_dump($request->re_password);
         // echo '</pre>';
         $rules = [
-            
+
             'password'      => 'required|min:6',
             're_password'   => 'required|min:6',
-        
+
         ];
         $messages = [
-            
+
             'password.required' => 'Mật khẩu không được để trống',
             'password.min'      => 'Mật khẩu phải chứa ít nhất 6 ký tự',
             're_password.required'      => 'Không được để trống',
@@ -179,7 +179,7 @@ class RegisterController extends Controller
             // $codeUser=  $codeUser[0]['attributes'];
             // dd($codeUser[0]);
             $timeCreate=strtotime($codeUser[0]->createat);
-            
+
             if($time - $timeCreate > 6000){
                 // echo 'quá thời gian';
                 // echo '<pre>';
@@ -208,7 +208,7 @@ class RegisterController extends Controller
                 if($codeUser[0]->status==1){
                     $user= User::find($codeUser[0]->user_id);
                     // $co= Confirm::find($codeUser['id']);
-                    // $co->delete();    
+                    // $co->delete();
                     return view('reset_password_input',['id'=>$user->id,'code'=>$code]);
                 }
             }

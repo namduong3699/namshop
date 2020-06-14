@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Catalog;
+use App\Models\Catalog;
 use Session;
 use View;
 use Cart;
@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         // });
         // view()->composer('modules/header', function($view){
         // });
-        
+
         // view()->composer('modules/header_all', function($view) {
         //     $catalog = Catalog::all();
         //     $view->with('catalog', $catalog);
@@ -36,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
                 $cart = Cart::instance('shopping')->content();
                 $catalog = Catalog::all();
                 View::share([
-                    'cart'      => $cart,   
-                    'catalog'   => $catalog                 
+                    'cart'      => $cart,
+                    'catalog'   => $catalog
                 ]);
             }
 
