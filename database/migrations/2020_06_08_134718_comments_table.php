@@ -19,7 +19,7 @@ class CommentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->longText('content');
             $table->unsignedInteger('rate');
-            $table->string('username');
+            $table->string('user_name');
             $table->timestamps();
         });
     }

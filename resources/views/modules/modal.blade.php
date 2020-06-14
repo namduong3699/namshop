@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 			<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-				<img src="{{URL::to('public/images/icons/icon-close.png')}}" alt="CLOSE">
+				<img src="{{URL::to('images/icons/icon-close.png')}}" alt="CLOSE">
 			</button>
 			<div class="row">
 				<!-- need change -->
@@ -116,7 +116,7 @@
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2 select2-hidden-accessible" name="time" tabindex="-1" aria-hidden="true" id="select-color">
-											
+
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -141,7 +141,7 @@
 										Thêm vào giỏ hàng
 									</button>
 								</div>
-							</div>	
+							</div>
 						</div>
 
 
@@ -165,7 +165,7 @@
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
 								<i class="fa fa-google-plus"></i>
 							</a> --}}
-							
+
 						</div>
 					</div>
 				</div>

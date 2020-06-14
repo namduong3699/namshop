@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
+
 	<title>@yield('page')</title>
 	<style>
 	.powerby {
@@ -12,7 +12,7 @@
 @include('modules/head')
 </head>
 <body class="animsition">
-	
+
 	<!-- Header index -->
 	@yield('headerindex')
 	<!-- Header -->
@@ -24,7 +24,7 @@
 
 	<!-- Title page -->
 	@yield('title')
-	
+
 	<!-- Content page -->
 	@yield('content')
 
@@ -52,7 +52,7 @@
 	@yield('back')
 	<!-- Modal1 -->
 	@yield('modal')
-	<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
@@ -115,7 +115,7 @@
 					$(this).addClass('js-addedCart');
 					$(this).attr('data-show',true);
 					swal(nameProduct, "Đã thêm vào yêu thích!", "success");
-					
+
 					$.ajax({
 						url: 'add-to-wishlist/'+$(this).data('id'),
 						type: 'get',
@@ -153,7 +153,7 @@
 									$('.wishlist-icon').attr('data-notify', i );
 									$('.js-addwish-b2').each(function(){
 										if($(this).attr('data-id')== id ) {
-											$(this).removeClass('js-addedCart');	
+											$(this).removeClass('js-addedCart');
 											$(this).attr('data-show',false);
 										}
 									});
@@ -166,13 +166,13 @@
 									.done(function() {
 										console.log("success");
 									});
-									
+
 								});
 							});
 
 						});
 				}else{
-					$(this).removeClass('js-addedCart');	
+					$(this).removeClass('js-addedCart');
 					$(this).attr('data-show',false);
 					swal(nameProduct, "Đã xóa khỏi yêu thích!", "success");
 					$.ajax({
@@ -180,7 +180,6 @@
 						type: 'get',
 						data: {id: $(this).data('id') },
 						success: function(){
-							// console.log($('.wishlist-icon').attr('data-notify'));
 							var i=parseInt($('.wishlist-icon').attr('data-notify'))-1;
 							$('.wishlist-icon').attr('data-notify', i );
 						}
@@ -213,7 +212,7 @@
 									$('.wishlist-icon').attr('data-notify', i );
 									$('.js-addwish-b2').each(function(){
 										if($(this).attr('data-id')== id ) {
-											$(this).removeClass('js-addedCart');	
+											$(this).removeClass('js-addedCart');
 											$(this).attr('data-show',false);
 										}
 									});
@@ -226,7 +225,7 @@
 									.done(function() {
 										console.log("success");
 									});
-									
+
 								});
 							});
 						});
@@ -248,7 +247,7 @@ $('.del-wish').on('click', function(event) {
 
 	$('.js-addwish-b2').each(function(){
 		if($(this).attr('data-id')== id ) {
-			$(this).removeClass('js-addedCart');	
+			$(this).removeClass('js-addedCart');
 			$(this).attr('data-show',false);
 		}
 	});
@@ -281,7 +280,7 @@ $('.js-addwish-detail').each(function(){
 			$(this).addClass('js-addedCart');
 			$(this).attr('data-show',true);
 			swal(nameProduct, "Đã thêm vào yêu thích!", "success");
-			
+
 			$.ajax({
 				url: 'add-to-wishlist/'+$(this).data('id'),
 				type: 'get',
@@ -319,7 +318,7 @@ $('.js-addwish-detail').each(function(){
 									$('.wishlist-icon').attr('data-notify', i );
 									$('.js-addwish-b2').each(function(){
 										if($(this).attr('data-id')== id ) {
-											$(this).removeClass('js-addedCart');	
+											$(this).removeClass('js-addedCart');
 											$(this).attr('data-show',false);
 										}
 									});
@@ -332,13 +331,13 @@ $('.js-addwish-detail').each(function(){
 									.done(function() {
 										console.log("success");
 									});
-									
+
 								});
 							});
 
 						});
 		}else{
-			$(this).removeClass('js-addedCart');	
+			$(this).removeClass('js-addedCart');
 			$(this).attr('data-show',false);
 			swal(nameProduct, "Đã xóa khỏi yêu thích!", "success");
 			$.ajax({
@@ -379,7 +378,7 @@ $('.js-addwish-detail').each(function(){
 									$('.wishlist-icon').attr('data-notify', i );
 									$('.js-addwish-b2').each(function(){
 										if($(this).attr('data-id')== id ) {
-											$(this).removeClass('js-addedCart');	
+											$(this).removeClass('js-addedCart');
 											$(this).attr('data-show',false);
 										}
 									});
@@ -392,7 +391,7 @@ $('.js-addwish-detail').each(function(){
 									.done(function() {
 										console.log("success");
 									});
-									
+
 								});
 							});
 						});
@@ -532,13 +531,13 @@ $('.del-cart').on('click', function(event) {
 	(function() {
 		var ga = document.createElement('script');
 		ga.type = 'text/javascript';
-		ga.async=true; 
+		ga.async=true;
 		ga.defer=true;
 		ga.src = '//live.vnpgroup.net/client/tracking.js?id=1925494';
 		var s = document.getElementsByTagName('script');
 		s[0].parentNode.insertBefore(ga, s[0])
 		;})();
-	</script>         	
+	</script>
 
 </body>
 </html>

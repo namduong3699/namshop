@@ -53,11 +53,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Bảng danh mục
-                <input type="checkbox"  style="
-                    float: right; display: block;margin-left:16px;" id='select_all' >
-                    <a href="#" id="deleteall" style="
-                    float: right;
-                    ">Delete All</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -70,9 +65,7 @@
                                 <tr>
                                     <th> # </th>
                                     <th>Tên danh mục</th>
-                                    <th>Mã số</th>
                                     <th>Số sản phẩm</th>
-                                    <th></th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -81,18 +74,16 @@
                               <?php $i=1;  ?>
                               @foreach($data as $value)
                               <tr class="tr_s">
-                                <th> {{$i++}} </th>
-                                <th>{{$value->name}}</th>
-                                <th>{{$value->id}}</th>
-                                <th>{{$value->count}}</th>
-                                <th><input type="checkbox" name='deleteall[]' value="{{$value->id}}"></th>
-                                <th><a href="{{URL::to('admin/catalog/edit', $value->id)}}"><i class="fa fa-edit"></i></a></th>
-                                <th><a href="{{URL::to('admin/catalog/delete', $value->id)}}"><i class="fa fa-trash"></i></a></th>
+                                <td>{{$value->id}}</td>
+                                <td>{{$value->name}}</td>
+                                <td>{{$value->count}}</td>
+                                <td><a href="{{URL::to('admin/catalog/edit', $value->id)}}"><i class="fa fa-edit"></i></a></td>
+                                <td><a href="{{URL::to('admin/catalog/delete', $value->id)}}"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                 </div>
             </form>
             <!-- /.table-responsive -->
@@ -117,7 +108,7 @@ $(function() {
             $('#deleteForm').submit();
             /* Act on the event */
         });
-  
+
     $('#select_all').click(function(event) {
         if(this.checked) {
             // Iterate each checkbox

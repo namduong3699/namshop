@@ -26,11 +26,8 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Mã số người dùng</th>
                   <th>Tên</th>
-                  <th>Mã số sản phẩm</th>
                   <th>Tên sản phẩm</th>
-                  <th>Ảnh</th>
                   <th>Đánh giá</th>
                   <th>Nội dung</th>
                   <th>Thời gian</th>
@@ -40,15 +37,10 @@
                @foreach($comment as $cmt)
                <tr class="tr_s">
                 <td>{{$loop->index}}</td>
-                <td>{{$cmt->user_Id}}</td>
                 <td>{{$cmt->user_name}}</td>
-                <td>{{$cmt->product_Id}}</td>
-                <td>{{DB::select("select `name` from product where id = ?" ,[$cmt->product_Id])[0]->name}}</td>
+                <td><a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->product->name}}</a></td>
                 <td>
-                  <a href="{{URL::to('product-detail', $cmt->product_Id)}}" style="color: black"><img src="images/{{DB::select("select `folder` from product where id = ?" ,[$cmt->product_Id])[0]->folder}}/{{DB::select("select `image_link` from product where id = ?" ,[$cmt->product_Id])[0]->image_link}}" alt="product-image" width="100px"></a>
-                </td>
-                <td>
-                  @if($cmt->rate === 0) 
+                  @if($cmt->rate === 0)
                   Không đánh giá
                   @else
                   @for($i = 0; $i < $cmt->rate; $i++)
@@ -57,10 +49,10 @@
                   @endif
                 </td>
                 <td>
-                 <a href="{{URL::to('product-detail', $cmt->product_Id)}}" style="color: black">{{$cmt->content}}</a>
+                 <a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->content}}</a>
                </td>
                <td>
-                {{$cmt->time}}
+                {{$cmt->created_at}}
               </td>
 
             </tr>

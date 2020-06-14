@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Catalog extends Model
 {
 	protected $table="catalogs";
-	public  $timestamps =false;
-	public function product() {
-		return $this->hasMany('App/Product', 'catalog_id', 'id');
+
+	public  $timestamps =true;
+
+	protected $fillable = [
+		'name', 'count'
+	];
+
+	public function products() {
+		return $this->hasMany(Product::class);
     }
 }

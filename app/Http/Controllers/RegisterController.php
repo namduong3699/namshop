@@ -11,7 +11,7 @@ use App\Models\User;
 use App\Models\Tinh;
 use App\Models\Huyen;
 use App\Models\Xa;
-use App\Confirm;
+use App\Models\Confirm;
 use Mail;
 use App\Mail\CheckEmail;
 use App\Mail\CheckEmailReset;
@@ -129,86 +129,71 @@ class RegisterController extends Controller
     }
     public function passwordForget(Request $request)
     {
-        // echo '<pre>';
-        // echo var_dump($request->id);
-        // echo var_dump($request->password);
-        // echo var_dump($request->re_password);
-        // echo '</pre>';
         $rules = [
-
-            'password'      => 'required|min:6',
-            're_password'   => 'required|min:6',
-
+            'password' => 'required|min:6',
+            're_password' => 'required|min:6',
         ];
         $messages = [
-
             'password.required' => 'Mật khẩu không được để trống',
-            'password.min'      => 'Mật khẩu phải chứa ít nhất 6 ký tự',
-            're_password.required'      => 'Không được để trống',
+            'password.min' => 'Mật khẩu phải chứa ít nhất 6 ký tự',
+            're_password.required' => 'Không được để trống',
         ];
         $validator = Validator::make($request->all(),$rules,$messages);
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator);
-        }else{
+        } else {
             if($request->password!=$request->re_password){
                     $err = new MessageBag(['errorPassword' => 'Mật khẩu không khớp']);
                     return redirect()->back()->withErrors($err);
                 }
-            $co= Confirm::where('code',$request->code)->get();
+            $confirm = Confirm::where('code', $request->code)->first();
 
-            if(count($co)!=0){
-            $co=$co[0];
-            $user= User::find($request->id);
-            $user->password= Hash::make($request->password);
-            $user->save();
-            $coC= Confirm::find($co['id']);
-            $coC->delete();
+            if($confirm){
+                $user= User::findOrFail($confirm->user_id);
+                $user->password = Hash::make($request->password);
+                $user->save();
+                $confirm = Confirm::find($confirm->id);
+                $confirm->delete();
             }
-        return redirect('/login');
+
+            dd($confirm);
+
+            return redirect('/login');
         }
     }
 
     public function confirmUser($code)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $time= time();
-        $codeUser= Confirm::where('code',$code)->get();
+        $time = time();
+        $codeUser = Confirm::where('code', $code)->first();
 
-        if(count($codeUser)!=0){
-
-            // $codeUser=  $codeUser[0]['attributes'];
-            // dd($codeUser[0]);
-            $timeCreate=strtotime($codeUser[0]->createat);
+        if($codeUser){
+            $timeCreate = strtotime($codeUser->created_at);
 
             if($time - $timeCreate > 6000){
-                // echo 'quá thời gian';
-                // echo '<pre>';
-                // echo var_dump(date('d/m/Y - H:i:s',$time));
-                // echo var_dump($time-$timeCreate);
-                // echo var_dump($codeUser);
-                // echo var_dump($codeUser['id']);
-                // echo '</pre>';
-                // if($codeUser[0]->status==0){
-                //     $user= User::find($codeUser[0]->user_id);
-                //     $user->level=2;
-                //     $user->save();
-                //     return redirect('/login');
-                // }
-                return redrirect('/');
+                echo '<pre>Link đã hết thời gian hiệu lực<pre>';
+
+                if($codeUser->status == 0){
+                    $user= User::find($codeUser->user_id);
+                    $user->level = 2;
+                    $user->save();
+                    return redirect('/login');
+                }
             }
             else{
-                if($codeUser[0]->status==0){
-                    $user= User::find($codeUser[0]->user_id);
-                    $user->level=2;
+                if($codeUser->status == 0){
+                    $user= User::find($codeUser->user_id);
+                    $user->level = 2;
                     $user->save();
-                    $co= Confirm::find($codeUser[0]->id);
+                    $co = Confirm::find($codeUser->id);
                     $co->delete();
                     return redirect('/login');
                 }
-                if($codeUser[0]->status==1){
-                    $user= User::find($codeUser[0]->user_id);
-                    // $co= Confirm::find($codeUser['id']);
-                    // $co->delete();
+                if($codeUser->status == 1){
+                    $user= User::find($codeUser->user_id);
+                    $co = Confirm::find($codeUser['id']);
+                    $co->delete();
                     return view('reset_password_input',['id'=>$user->id,'code'=>$code]);
                 }
             }

@@ -18,7 +18,7 @@ class QuanhuyenTable extends Migration
             $table->unsignedInteger('maqh')->unique();
             $table->string('name');
             $table->string('type');
-            $table->unsignedInteger('matp')->unique();
+            $table->unsignedInteger('matp');
         });
     }
 

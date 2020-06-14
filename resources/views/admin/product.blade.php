@@ -33,7 +33,7 @@
                                <option value="{{$value->id}}">{{$value->name}}</option>
                                @endforeach
                            </select>
-                       </div> 
+                       </div>
                        <div class="form-group">
                         <label>Số lượng</label>
                         <input name="count" type="number" class="form-control" placeholder="Enter text">
@@ -105,7 +105,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Mã số</th>
                                 <th>Danh mục</th>
                                 <th>Số hàng</th>
                                 <th>Kích thước</th>
@@ -124,20 +123,19 @@
                            <?php $i=1; ?>
                            @foreach($data as $value)
                            <tr class="tr_s">
-                            <th>{{$i++}}</th>
-                            <th>{{$value->name}}</th>
-                            <th>{{$value->id}}</th>
+                           <th>{{$value->id}}</th>
+                            <th><a style="overflow: hidden;" href="product-detail/{{$value->id}}" target="_blank">{{$value->name}}</a></th>
                             <th>
-                                {{DB::select("select 'name' from catalog where id = ?" ,[$value->catalog_id])[0]->name}}
+                                {{$value->catalog->name}}
                             </th>
                             <th>{{$value->count}}</th>
-                            <th>{{implode(json_decode($value->size,true), ',')}}</th>
-                            <th> {{implode(json_decode($value->color,true), ',')}} </th>
+                            <th>{{implode(', ', json_decode($value->size,true))}}</th>
+                            <th> {{implode(', ', json_decode($value->color,true))}} </th>
                             <th>{{number_format($value->price)}}</th>
                             <th>{{$value->discount}}%</th>
-                            <th><a style="display: block;width: 140px;overflow: hidden;" href="{{$value->folder}}/{{$value->image_link}}">{{$value->image_link}}</a></th>
+                            <th><a style="overflow: hidden;" href="images/{{$value->folder}}/{{$value->image_link}}" target="_blank">{{$value->image_link}}</a></th>
                             <th>{{$value->description}}</th>
-                            <th>{{ \Carbon\Carbon::parse($value->createat)->format('d/m/Y')}}</th>
+                            <th>{{ \Carbon\Carbon::parse($value->created_at)->format('d/m/Y')}}</th>
                             <th><input type="checkbox" name='deleteall[]' value="{{$value->id}}"></th>
                             <th><a href="{{URL::to('admin/product/edit', $value->id)}}"><i class="fa fa-edit"></i></a></th>
                             <th><a href="{{URL::to('admin/product/delete' ,$value->id)}}"><i class="fa fa-trash"></i></a></th>

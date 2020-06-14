@@ -42,7 +42,7 @@
                                 <td>{{number_format($trans->amount)}}</td>
                                 <td>{{$trans->payment_info}}</td>
                                 <td>{{implode(json_decode($trans->message, true))}}</td>
-                                <td>{{$trans->createdat}}</td>
+                                <td>{{$trans->created_at}}</td>
                             </tr>
                             @endforeach
                         </tbody>

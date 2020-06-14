@@ -19,6 +19,7 @@ class TransactionsTable extends Migration
             $table->string('user_name');
             $table->string('user_email');
             $table->string('user_phone');
+            $table->unsignedInteger('status')->default(0);
             $table->unsignedInteger('amount');
             $table->string('payment');
             $table->text('payment_info');

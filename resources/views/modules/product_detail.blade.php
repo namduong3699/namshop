@@ -8,9 +8,9 @@
 						<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 						<div class="slick3 gallery-lb">
-							<?php  
+							<?php
 							$list = $product->image_list;
-							$list= json_decode($list,true);
+							$list= json_decode($list, true);
 							?>
 							@foreach($list as $image)
 							<div class="item-slick3" data-thumb="images/{{$product->folder}}/{{$image}}">
@@ -47,7 +47,7 @@
 						<strong id="price">
 							{{ number_format($product->price) }} VNĐ
 						</strong>
-						@endif	
+						@endif
 
 
 					</span>
@@ -131,9 +131,9 @@
 									Thêm vào giỏ hàng
 								</button>
 							</div>
-						</div>	
+						</div>
 					</div>
-					
+
 					<!--  -->
 					<div class="flex-w flex-m p-t-10 p-l-30 respon7" style="width: 100%; overflow: hidden;">
 
@@ -177,7 +177,7 @@
 					<!-- - -->
 					<div class="tab-pane fade" id="information" role="tabpanel">
 						<div class="row">
-							<div class="col-sm-5 col-md-4 col-lg-3 m-lr-auto">
+							<div class="col-sm-5 col-md-4 col-lg-6 m-lr-auto">
 								<ul class="p-lr-28 p-lr-15-sm">
 									<li class="flex-w flex-t p-b-7">
 										<span class="stext-102 cl3 size-205" >
@@ -185,7 +185,7 @@
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											{{implode($product->color,',')}}
+											{{implode(', ', $product->color)}}
 										</span>
 									</li>
 
@@ -195,7 +195,7 @@
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											{{implode($product->size,',')}}
+											{{implode(',', $product->size)}}
 										</span>
 									</li>
 								</ul>
@@ -225,16 +225,16 @@
 													@for($i = 0; $i < $cmt->rate; $i++)
 													<i class="zmdi zmdi-star"></i>
 													@endfor
-													
+
 												</span>
 											</div>
 											<span class="stext-102 cl6 p-b-15">
-												{{$cmt->time}}
+												{{$cmt->created_at}}
 											</span>
 
 											<p class="stext-102 cl6">
 												{{$cmt->content}}
-											</p> 
+											</p>
 										</div>
 									</div>
 									@endforeach

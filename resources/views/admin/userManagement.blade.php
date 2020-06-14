@@ -26,7 +26,6 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mã số người dùng</th>
                                     <th>Tên</th>
                                     <th>Email</th>
                                     <th>Số điện thoại</th>
@@ -36,23 +35,22 @@
                             </thead>
                             <tbody>
                             	<?php $i=1; ?>
-                            	@foreach($data as $value)
+                            	@foreach($data as $user)
                             	<tr class="tr_s">
-                                    <th>{{$i++}}</th>
-                                    <th>{{$value->id}}</th>
-                                    <th>{{$value->name}}</th>
-                                    <th>{{$value->email}}</th>
-                                    <th>{{$value->phone}}</th>
+                                    <th>{{$user->id}}</th>
+                                    <th>{{$user->name}}</th>
+                                    <th>{{$user->email}}</th>
+                                    <th>{{$user->phone}}</th>
                                     <th>
-                                    	@if($value->level==0)
-                                    	Bình thường
-                                    	@else
+                                    	@if($user->isAdmin())
                                     	Admin
+                                    	@else
+                                    	User
                                     	@endif
                                     </th>
                                     <th>
-                                        @if($value->address !== null)
-                                        {{implode(", ", array_reverse(json_decode($value->address, true)))}}
+                                        @if($user->address !== null)
+                                        {{ implode(", ", array_reverse(json_decode($user->address, true))) }}
                                         @else
                                         Không có thông tin
                                         @endif

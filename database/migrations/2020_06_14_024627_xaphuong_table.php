@@ -18,7 +18,7 @@ class XaphuongTable extends Migration
             $table->unsignedInteger('xaid')->unique();
             $table->string('name');
             $table->string('type');
-            $table->unsignedInteger('maqh')->unique();
+            $table->unsignedInteger('maqh');
         });
     }
 
