@@ -27,19 +27,24 @@
                                 <th>Thanh toán</th>
                                 <th>Địa chỉ</th>
                                 <th>Ngày tạo</th>
-                                <th>Xem</th>
-                                <th>Hủy</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($transaction as $trans)
                             <tr>
                                 <td>{{$trans->id}}</td>
-                                @if($trans->is_cancelled)
-                                <td style="color: #ff7675">Đã hủy</td>
-                                @else
-                                <td>{{($trans->is_shipped) ? 'Đã giao' : 'Chưa giao'}}</td>
-                                @endif
+                                <td>
+                                    @if($trans->is_shipped)
+                                        đã giao
+                                    @elseif($trans->is_cancelled)
+                                        đã hủy
+                                    @elseif($trans->is_confirmed)
+                                        đã xác nhận
+                                    @else
+                                        chưa xác nhận
+                                    @endif
+                                </td>
                                 <td>{{($trans->is_paied) ? 'Đã TT' : 'Chưa TT'}}</td>
                                 <td>{{$trans->user_email}}</td>
                                 <td>{{$trans->user_phone}}</td>
@@ -47,8 +52,15 @@
                                 <td>{{$trans->payment_info}}</td>
                                 <td>{{implode(', ', json_decode($trans->message, true))}}</td>
                                 <td>{{$trans->created_at}}</td>
-                                <td><a href="{{URL::to('admin/transaction/'.$trans->id.'/detail')}}"><i class="fa fa-eye"></i></a></td>
-                                <td><a href="{{URL::to('admin/transaction/cancel' ,$trans->id)}}"><i class="fa fa-trash"></i></a></td>
+                                <td>
+                                    <a href="{{URL::to('admin/transaction/'.$trans->id.'/detail')}}"><i class="fa fa-eye"></i></a>
+                                    @if(!$trans->is_cancelled)
+                                        @if(!$trans->is_confirmed)
+                                            <a href="{{URL::to('admin/transaction/confirm', $trans->id)}}"><i class="fa fa-check"></i></a>
+                                        @endif
+                                        <a href="{{URL::to('admin/transaction/cancel', $trans->id)}}"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

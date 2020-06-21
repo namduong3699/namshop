@@ -15,7 +15,7 @@
 			<ul class="header-cart-wrapitem w-full" id="show-cart-full">
 				@if(isset($cart))
 				@foreach(Cart::instance('shopping')->content() as $item)
-				<li class="header-cart-item flex-w flex-t m-b-12">	
+				<li class="header-cart-item flex-w flex-t m-b-12">
 					<div class="header-cart-item-img del-cart" data-id="{!! $item->id !!}">
 						<img src="images/{!! $item->options->folder !!}/{!! $item->options->image !!}" alt="IMG">
 					</div>
@@ -31,7 +31,7 @@
 					</div>
 				</li>
 				@endforeach
-				@else 
+				@else
 				<span class="mtext-103 cl2">
 					Không có hàng trong giỏ
 				</span>
@@ -44,18 +44,16 @@
 				<div class="header-cart-total w-full p-tb-40">
 					<table width="250px;">
 						<tr>
-							<td>Số lượng:</td>
+							<!-- <td>Số lượng:</td>
 							<td>
 								<span style="color: red;">
 									<b>
 									@if(Cart::instance('shopping')->content())
-										{{ Cart::instance('shopping')->subtotal(0) }} VNĐ
-										@else
-										0 VNĐ
+										{{ Cart::instance('shopping')->count() }}
 										@endif
 								</b>
 							</span><br/>
-							</td>
+							</td> -->
 						</tr>
 						<tr>
 							<td>Tổng cộng:</td>
@@ -73,9 +71,9 @@
 						</tr>
 					</table>
 
-					
 
-					
+
+
 				</div>
 				<div class="header-cart-buttons flex-w w-full">
 					<a href="{{ URL::to('shoping-cart') }}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">

@@ -40,10 +40,11 @@ Route::get('/blog-detail', 'UserController@blogdetail');
 Route::get('/product-detail/{id}', 'UserController@productdetail');
 Route::get('/product/{type}', 'UserController@catalog');
 Route::get('/productshow/{id}', 'UserController@getProduct');
-Route::get('account', 'UserController@getAccount');
+Route::get('account', 'UserController@getAccount')->name('account');
 Route::post('comment', 'UserController@postComment');
 Route::get('editAccount', 'UserController@getEditAccount');
 Route::get('needContact', 'UserController@getNeedContact');
+Route::get('transaction/{id}/cancel', 'UserController@cancelTransaction');
 Route::get('confirm', function(){
 	return view('confirm_email');
 });
@@ -210,6 +211,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 	//**********delete all**********//
 	Route::get('/transaction', 'HomeController@getTransaction')->name('transaction');
 	Route::get('/transaction/cancel/{id}', 'HomeController@cancelTransaction');
+	Route::get('/transaction/confirm/{id}', 'HomeController@confirmTransaction');
 	Route::get('/transaction/{id}/detail', 'HomeController@transactionDetailt');
 	Route::get('/order', 'HomeController@getOrder')->name('order');
 	//**********users***********//
