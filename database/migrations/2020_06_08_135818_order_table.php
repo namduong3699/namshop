@@ -21,6 +21,7 @@ class OrderTable extends Migration
             $table->unsignedInteger('amount');
             $table->longText('data')->nullable();
             $table->integer('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

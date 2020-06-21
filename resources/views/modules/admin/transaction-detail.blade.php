@@ -21,21 +21,21 @@
                                     <th>#</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
+                                    <th>Giá</th>
                                     <th>Màu sắc</th>
                                     <th>Kích thước</th>
-                                    <th>Trạng thái</th>
                                     <th>Ngày tạo</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($orders as $order)
+                                @foreach($transaction->orders as $order)
                                     <tr>
                                         <td>{{$order->transaction_id}}</td>
                                         <td>{{ $order->product->name }}</td>
                                         <td>{{$order->count}}</td>
+                                        <td>{{ number_format($order->amount) }}</td>
                                         <td>{{json_decode($order->data)->color}}</td>
                                         <td>{{json_decode($order->data)->size}}</td>
-                                        <td>{{($order->status) ? 'Đã giao' : 'Chưa giao'}}</td>
                                         <td>{{$order->created_at}}</td>
                                     </tr>
                                 @endforeach

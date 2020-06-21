@@ -19,30 +19,36 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Mã giao dịch</th>
                                 <th>Trạng thái</th>
                                 <th>Thanh toán</th>
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
                                 <th>Số tiền</th>
-                                <th>Cổng thanh toán</th>
+                                <th>Thanh toán</th>
                                 <th>Địa chỉ</th>
                                 <th>Ngày tạo</th>
+                                <th>Xem</th>
+                                <th>Hủy</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($transaction as $trans)
                             <tr>
-                                <td>{{$loop->index+1}}</td>
                                 <td>{{$trans->id}}</td>
-                                <td>{{($trans->status) ? 'Đã giao' : 'Chưa giao'}}</td>
-                                <td>{{($trans->payment === 'paid') ? 'Đã TT' : 'Chưa TT'}}</td>
+                                @if($trans->is_cancelled)
+                                <td style="color: #ff7675">Đã hủy</td>
+                                @else
+                                <td>{{($trans->is_shipped) ? 'Đã giao' : 'Chưa giao'}}</td>
+                                @endif
+                                <td>{{($trans->is_paied) ? 'Đã TT' : 'Chưa TT'}}</td>
                                 <td>{{$trans->user_email}}</td>
                                 <td>{{$trans->user_phone}}</td>
                                 <td>{{number_format($trans->amount)}}</td>
                                 <td>{{$trans->payment_info}}</td>
-                                <td>{{implode(json_decode($trans->message, true))}}</td>
+                                <td>{{implode(', ', json_decode($trans->message, true))}}</td>
                                 <td>{{$trans->created_at}}</td>
+                                <td><a href="{{URL::to('admin/transaction/'.$trans->id.'/detail')}}"><i class="fa fa-eye"></i></a></td>
+                                <td><a href="{{URL::to('admin/transaction/cancel' ,$trans->id)}}"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>

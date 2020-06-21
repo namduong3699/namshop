@@ -21,6 +21,7 @@ class SlidesTable extends Migration
             $table->text('link');
             $table->text('image');
             $table->text('folder');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

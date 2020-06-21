@@ -26,6 +26,7 @@ class ProductsTable extends Migration
             $table->text('image_link');
             $table->text('image_list');
             $table->longText('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

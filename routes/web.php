@@ -209,6 +209,8 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
 	Route::post('/deleteall','HomeController@deleteAll')->name('deleteall');
 	//**********delete all**********//
 	Route::get('/transaction', 'HomeController@getTransaction')->name('transaction');
+	Route::get('/transaction/cancel/{id}', 'HomeController@cancelTransaction');
+	Route::get('/transaction/{id}/detail', 'HomeController@transactionDetailt');
 	Route::get('/order', 'HomeController@getOrder')->name('order');
 	//**********users***********//
 	Route::get('/userManagement', 'HomeController@userManagement');
