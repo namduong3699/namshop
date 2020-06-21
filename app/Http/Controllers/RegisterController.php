@@ -156,7 +156,7 @@ class RegisterController extends Controller
                 $confirm->delete();
             }
 
-            dd($confirm);
+            // dd($confirm);
 
             return redirect('/login');
         }
