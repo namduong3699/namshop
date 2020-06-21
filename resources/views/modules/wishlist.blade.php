@@ -13,7 +13,7 @@
 
 		<div class="header-wishlist-content flex-w js-pscroll">
 			<div style="display: none;" id="wishQty">{{count(Cart::instance('wishlist')->content())}}</div>
-			<ul class="header-cart-wrapitem w-full wish-list">
+			<ul id="wish-list" class="header-cart-wrapitem w-full wish-list">
 				 {{-- {{dd(empty(Cart::instance('wishlist')->content()))}} --}}
 				@if(count(Cart::instance('wishlist')->content()))
 				@foreach(Cart::instance('wishlist')->content() as $item)
@@ -33,7 +33,7 @@
 					</div>
 				</li>
 				@endforeach
-				@else 
+				@else
 				<span class="mtext-103 cl2">
 					Không có hàng trong giỏ
 				</span>
@@ -41,7 +41,7 @@
 
 			</ul>
 
-			
+
 		</div>
 	</div>
 </div>
