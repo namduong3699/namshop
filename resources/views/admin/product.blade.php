@@ -111,7 +111,6 @@
                                 <th>Màu sắc</th>
                                 <th>Giá</th>
                                 <th>Giảm giá</th>
-                                <th style="width: 150px;">Ảnh đại diện</th>
                                 <th>Mô tả</th>
                                 <th>Ngày tạo</th>
                                 <th></th>
@@ -133,7 +132,6 @@
                             <th> {{implode(', ', json_decode($value->color,true))}} </th>
                             <th>{{number_format($value->price)}}</th>
                             <th>{{$value->discount}}%</th>
-                            <th><a style="overflow: hidden;" href="images/{{$value->folder}}/{{$value->image_link}}" target="_blank">{{$value->image_link}}</a></th>
                             <th>{{$value->description}}</th>
                             <th>{{ \Carbon\Carbon::parse($value->created_at)->format('d/m/Y')}}</th>
                             <th><input type="checkbox" name='deleteall[]' value="{{$value->id}}"></th>

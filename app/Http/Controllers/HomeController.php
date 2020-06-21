@@ -136,8 +136,8 @@ class HomeController extends Controller
         $size_j= json_decode($data->size,true);
         $color_j= json_decode($data->color,true);
 
-        $size= implode($size_j, ',');
-        $color= implode($color_j, ',');
+        $size= implode(',', $size_j);
+        $color= implode(',', $color_j);
 
         $data->size=$size;
         $data->color=$color;
@@ -200,31 +200,56 @@ class HomeController extends Controller
         }
         return redirect('admin/product');
     }
+
+    public function cancelTransaction(Request $request)
+    {
+        $transaction = Transaction::findOrFail($request->id);
+        $transaction->is_cancelled = true;
+        $transaction->save();
+
+        return redirect('admin/transaction');
+    }
+
+    public function transactionDetailt(Request $request)
+    {
+        $transaction = Transaction::findOrFail($request->id);
+
+        return view('admin.transaction-detail', ['transaction' => $transaction]);
+    }
+
     public function productDelete($id)
     {
-        $addT = new Product();
-        $addC= new Catalog();
+        // $addT = new Product();
+        // $addC= new Catalog();
 
 
-        $data=$addT::find($id);
-        $path='public/images/'.$data->folder;
+        // $data = $addT::find($id);
+        // $path = 'images/'.$data->folder;
 
-        $dataC= $addC::find($data->catalog_id);
-        $dataC->count=$dataC->count-1;
-        $dataC->save();
+        // $dataC = $addC::find($data->catalog_id);
+        // $dataC->count=$dataC->count-1;
+        // $dataC->save();
 
-        if(!empty($data->folder)){
-            $fl=scandir($path);
-            if($fl){
-                foreach ($fl as $key=> $value) {
-                    if($key>1){
-                        unlink($path.'/'.$value);
-                    }
-                }
-                rmdir($path);
-            }
-        }
-        $data->delete();
+        $product = Product::findOrFail($id);
+        $catalog = $product->catalog;
+        $catalog->count = $catalog->count - 1;
+        $catalog->save();
+
+        $product->delete();
+
+
+        // if(!empty($data->folder)){
+        //     $fl = scandir($path);
+        //     if ($fl) {
+        //         foreach ($fl as $key => $value) {
+        //             if ($key>1) {
+        //                 unlink($path.'/'.$value);
+        //             }
+        //         }
+        //         rmdir($path);
+        //     }
+        // }
+        // $data->delete();
         return redirect('admin/product');
     }
     // Management users in local

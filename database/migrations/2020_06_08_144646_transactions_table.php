@@ -25,6 +25,10 @@ class TransactionsTable extends Migration
             $table->text('payment_info');
             $table->text('message')->nullbale();
             $table->text('security')->nullable();
+            $table->boolean('is_paid')->default(false);
+            $table->boolean('is_shipped')->default(false);
+            $table->boolean('is_cancelled')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -133,10 +133,6 @@
                         <a href="{{URL::to('admin/transaction')}}"><i class="fa fa-cart-plus fa-fw"></i> Quản lý giao dịch</a>
                     </li>
                     <li>
-                        <a href="{{URL::to('admin/order')}}"><i class="fa fa-shopping-basket fa-fw"></i> Đơn đặt hàng</a>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
                         <a href="{{URL::to('admin/comment')}}"><i class="fa fa-comment-o fa-fw"></i>Quản lý bình luận</a>
                         <!-- /.nav-second-level -->
                     </li>

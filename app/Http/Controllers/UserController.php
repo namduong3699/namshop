@@ -47,6 +47,7 @@ class UserController extends Controller
         $product = Product::orderBy('count', 'desc')->paginate(12);
         return view('product_user', ['product' => $product]);
     }
+
     public function getShopingcart(Request $req){
         $tp = DB::select('select * from tinh');
         $user = Auth::user();

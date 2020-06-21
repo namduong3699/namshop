@@ -17,6 +17,7 @@ class CatalogsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->unsignedInteger('count')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

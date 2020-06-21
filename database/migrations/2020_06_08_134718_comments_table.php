@@ -20,6 +20,7 @@ class CommentsTable extends Migration
             $table->longText('content');
             $table->unsignedInteger('rate');
             $table->string('user_name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

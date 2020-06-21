@@ -142,7 +142,7 @@ class RegisterController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         } else {
-            if($request->password!=$request->re_password){
+            if($request->password != $request->re_password){
                     $err = new MessageBag(['errorPassword' => 'Mật khẩu không khớp']);
                     return redirect()->back()->withErrors($err);
                 }

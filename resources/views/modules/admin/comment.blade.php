@@ -35,27 +35,28 @@
               </thead>
               <tbody>
                @foreach($comment as $cmt)
-               <tr class="tr_s">
-                <td>{{$loop->index}}</td>
-                <td>{{$cmt->user_name}}</td>
-                <td><a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->product->name}}</a></td>
-                <td>
-                  @if($cmt->rate === 0)
-                  Không đánh giá
-                  @else
-                  @for($i = 0; $i < $cmt->rate; $i++)
-                  <i class="zmdi zmdi-star" style="color: #f1c40f"></i>
-                  @endfor
-                  @endif
-                </td>
-                <td>
-                 <a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->content}}</a>
-               </td>
-               <td>
-                {{$cmt->created_at}}
-              </td>
-
-            </tr>
+                @if($cmt->product)
+                  <tr class="tr_s">
+                    <td>{{$loop->index}}</td>
+                    <td>{{$cmt->user_name}}</td>
+                    <td><a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->product->name}}</a></td>
+                    <td>
+                      @if($cmt->rate === 0)
+                      Không đánh giá
+                      @else
+                      @for($i = 0; $i < $cmt->rate; $i++)
+                      <i class="zmdi zmdi-star" style="color: #f1c40f"></i>
+                      @endfor
+                      @endif
+                    </td>
+                    <td>
+                      <a href="{{URL::to('product-detail', $cmt->product_id)}}" style="color: black">{{$cmt->content}}</a>
+                    </td>
+                    <td>
+                      {{$cmt->created_at}}
+                    </td>
+                  </tr>
+                @endif
             @endforeach
           </tbody>
         </table>

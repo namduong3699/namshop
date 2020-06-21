@@ -30,7 +30,7 @@
                                     <option>4</option>
                                     <option>5</option>
                                 </select>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label>Kích thước</label>
                                 <input class="form-control" placeholder="Enter text">
