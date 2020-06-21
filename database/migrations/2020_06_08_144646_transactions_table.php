@@ -28,6 +28,7 @@ class TransactionsTable extends Migration
             $table->boolean('is_paid')->default(false);
             $table->boolean('is_shipped')->default(false);
             $table->boolean('is_cancelled')->default(false);
+            $table->boolean('is_confirmed')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

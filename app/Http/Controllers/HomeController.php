@@ -210,6 +210,15 @@ class HomeController extends Controller
         return redirect('admin/transaction');
     }
 
+    public function confirmTransaction(Request $request)
+    {
+        $transaction = Transaction::findOrFail($request->id);
+        $transaction->is_confirmed = true;
+        $transaction->save();
+
+        return redirect('admin/transaction');
+    }
+
     public function transactionDetailt(Request $request)
     {
         $transaction = Transaction::findOrFail($request->id);

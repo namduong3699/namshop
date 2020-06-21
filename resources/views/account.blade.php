@@ -99,11 +99,26 @@ Tài khoản
 							<td>Đặt ngày: {{$transaction->created_at}}</td>
 						</tr>
 						<tr>
-							<td>Tình trạng: @if($transaction->status == 0) chưa giao hàng @else đã giao hàng @endif</td>
+							<td>Tình trạng:
+									@if($transaction->is_shipped)
+                                        đã giao
+									@elseif($transaction->is_cancelled)
+                                        đã hủy
+                                    @elseif($transaction->is_confirmed)
+                                        đã xác nhận
+                                    @else
+                                        chờ xác nhận
+                                    @endif
+							</td>
 							<td>Phương thức thanh toán: {{$transaction->payment_info}} @if($transaction->payment == 'none') (chưa thanh toán) @else (đã thanh toán) @endif</td>
 						</tr>
 						<tr>
-							<td colspan="2">Địa chỉ nhận hàng: {{implode(", ", array_reverse(json_decode($transaction->message, true)))}}</td><td></td>
+							<td>Địa chỉ nhận hàng: {{implode(", ", array_reverse(json_decode($transaction->message, true)))}}</td><td></td>
+							@if($transaction->is_shipped || $transaction->is_confirmed || $transaction->is_cancelled)
+								<td></td>
+							@else
+								<td><a href="{{URL::to('transaction/'.$transaction->id.'/cancel')}}">Hủy</a></td>
+							@endif
 						</tr>
 					</table>
 
