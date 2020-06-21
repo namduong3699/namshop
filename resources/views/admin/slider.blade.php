@@ -100,9 +100,9 @@
                             <th>{{$value->content}}</th>
                             <th>{{$value->button}}</th>
                             <th>{{$value->link}}</th>
-                            <th><a href="{{$value->image}}">{{$value->image}}</a></th>
+                            <th><a href="{{'images/slides/'.$value->image}}">{{$value->image}}</a></th>
                             <th><input type="checkbox" name='deleteall[]' value="{{$value->id}}"></th>
-                            <th><a href="{{URL::to('admin/slide/edit', $value->id)}}"><i class="fa fa-edit"></i></a></th>
+                            <th><a href="{{URL::to('admin/slide/edit', $value->id)}}" target="_blank"><i class="fa fa-edit"></i></a></th>
                             <th><a href="{{URL::to('admin/slide/delete', $value->id)}}"><i class="fa fa-trash"></i></a></th>
                         </tr>
                         @endforeach
