@@ -1,4 +1,4 @@
-<base href="{{ asset('') }}">
+<base href="{{ asset('') }}public/">
 <header class="header-v3">
 	<!-- Header desktop -->
 	<div class="container-menu-desktop">
