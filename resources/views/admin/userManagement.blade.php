@@ -50,7 +50,7 @@
                                     </th>
                                     <th>
                                         @if($user->address !== null)
-                                        {{ implode(", ", array_reverse(json_decode($user->address, true))) }}
+                                        {{ implode(", ", json_decode($user->address, true)) }}
                                         @else
                                         Không có thông tin
                                         @endif
