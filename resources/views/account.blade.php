@@ -75,7 +75,7 @@ Tài khoản
 
 												</td>
 												<td>
-													<p>{{$address['xa']}}, {{$address['huyen']}}, {{$address['tinh']}}</p>
+													<p>{{ array_get($address, 'xa') }}, {{ array_get($address, 'huyen') }}, {{ array_get($address, 'tinh') }}</p>
 												</td>
 											</tr>
 										</table>
