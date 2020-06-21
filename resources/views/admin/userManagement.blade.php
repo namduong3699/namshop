@@ -49,8 +49,8 @@
                                     	@endif
                                     </th>
                                     <th>
-                                        @if($user->address !== null)
-                                        {{ json_decode($user->address, true) }}
+                                        @if($user->address !== "")
+                                        {{ implode(", ", array_reverse(json_decode($user->address, true))) }}
                                         @else
                                         Không có thông tin
                                         @endif
