@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href=" {{ asset('') }}">
+    <base href=" {{ asset('') }}public/">
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 

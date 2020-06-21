@@ -1,9 +1,9 @@
-<base href=" {{asset('')}}public\ ">
+<base href=" {{asset('')}}public/ ">
 
 <section class="section-slide">
 	<div class="wrap-slick1 rs2-slick1">
 		<div class="slick1">
-			@foreach($slide as $slides) 
+			@foreach($slide as $slides)
 			<div class="item-slick1 bg-overlay1" style="background-image: url(images/{{$slides->folder}}/{{$slides->image}})" data-thumb="images/{{$slides->folder}}/{{$slides->image}}" data-caption="{{ $slides->title }}">
 				<div class="container h-full">
 					<div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">

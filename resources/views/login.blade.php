@@ -3,7 +3,7 @@
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
-    <base href="{{ asset('') }}/">
+    <base href="{{ asset('') }}public/">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
@@ -24,8 +24,8 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/main_login.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/util_login.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/main_login.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/util_login.css') }}">
 	<!--===============================================================================================-->
 </head>
 <body>
