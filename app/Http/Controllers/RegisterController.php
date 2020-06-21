@@ -147,13 +147,15 @@ class RegisterController extends Controller
                     return redirect()->back()->withErrors($err);
                 }
             $confirm = Confirm::where('code', $request->code)->first();
+            // dd($confirm);
 
             if($confirm){
                 $user= User::findOrFail($confirm->user_id);
                 $user->password = Hash::make($request->password);
                 $user->save();
+                // dd($user);
                 $confirm = Confirm::find($confirm->id);
-                $confirm->delete();
+                // $confirm->delete();
             }
 
             // dd($confirm);
@@ -187,13 +189,13 @@ class RegisterController extends Controller
                     $user->level = 2;
                     $user->save();
                     $co = Confirm::find($codeUser->id);
-                    $co->delete();
+                    // $co->delete();
                     return redirect('/login');
                 }
                 if($codeUser->status == 1){
                     $user= User::find($codeUser->user_id);
                     $co = Confirm::find($codeUser['id']);
-                    $co->delete();
+                    // $co->delete();
                     return view('reset_password_input',['id'=>$user->id,'code'=>$code]);
                 }
             }

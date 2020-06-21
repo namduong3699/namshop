@@ -51,7 +51,7 @@ Route::get('confirm', function(){
 Route::post('/password_reset','RegisterController@passwordForget');
 
 
-Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
+// Route::get('confirmuser/{code}', 'RegisterController@confirmUser');
 
 
 Route::get('/resetpassword',function(){
