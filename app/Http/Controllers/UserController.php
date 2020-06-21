@@ -48,6 +48,16 @@ class UserController extends Controller
         return view('product_user', ['product' => $product]);
     }
 
+    public function cancelTransaction(Request $request)
+    {
+        $user = Auth::user();
+        $transaction = $user->transactions()->where('id', $request->id)->first();
+        $transaction->is_cancelled = true;
+        $transaction->save();
+
+        return redirect('account');
+    }
+
     public function getShopingcart(Request $req){
         $tp = DB::select('select * from tinh');
         $user = Auth::user();
