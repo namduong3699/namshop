@@ -3,6 +3,7 @@
 <head>
 	
 	<title>@yield('page')</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 	<style>
 	.powerby {
 		display: none;
@@ -52,6 +53,13 @@
 	@yield('back')
 	<!-- Modal1 -->
 	@yield('modal')
+    <div
+            id="g_id_onload"
+            data-client_id="163314814873-3qfacc2ajjhn6bvtnulhi1m1vvmodotc.apps.googleusercontent.com"
+            data-login_uri="https://accounts-stg.viblo.asia/auth/google"
+            data-auto_select="true"
+            data-cancel_on_tap_outside="false"
+        />
 	<!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
